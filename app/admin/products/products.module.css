@@ -1,0 +1,19 @@
+.grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+.card { background:var(--cream); border:1px solid var(--rule-soft); border-radius:12px; padding:28px; }
+.unavailable { opacity:0.6; }
+.header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px; gap:12px; }
+.name { font-family:'Sergio Trendy','Bricolage Grotesque',sans-serif; font-weight:800; font-size:22px; text-transform:uppercase; color:var(--olive); margin:0 0 4px; }
+.variety { font-family:'JetBrains Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:0.1em; color:var(--ink-soft); }
+.badges { display:flex; flex-direction:column; gap:4px; align-items:flex-end; }
+.badgeOn { background:#D1FAE5; color:#065F46; padding:3px 10px; border-radius:999px; font-size:11px; font-weight:600; }
+.badgeSoon { background:#FEF3C7; color:#92400E; padding:3px 10px; border-radius:999px; font-size:11px; font-weight:600; }
+.badgeOff { background:#F3F4F6; color:#6B7280; padding:3px 10px; border-radius:999px; font-size:11px; font-weight:600; }
+.desc { color:var(--ink-soft); font-size:13px; margin:0 0 20px; line-height:1.5; }
+.priceRow { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:12px; font-size:13px; color:var(--ink-soft); }
+.priceInput { width:80px; border:1.5px solid var(--rule); border-radius:6px; padding:6px 10px; font-size:14px; font-weight:700; color:var(--olive); font-family:'Sergio Trendy','Bricolage Grotesque',sans-serif; background:var(--paper); outline:none; text-align:right; }
+.priceInput:focus { border-color:var(--leaf); }
+.toggles { display:flex; flex-direction:column; gap:10px; margin-top:16px; padding-top:16px; border-top:1px solid var(--rule-soft); }
+.toggle { display:flex; align-items:center; gap:10px; font-size:13px; color:var(--ink-soft); cursor:pointer; }
+.toggle input { width:16px; height:16px; accent-color:var(--leaf); cursor:pointer; }
+@media (max-width:1100px) { .grid { grid-template-columns:repeat(2,1fr); } }
+@media (max-width:640px) { .grid { grid-template-columns:1fr; } }

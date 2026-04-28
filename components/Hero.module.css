@@ -1,0 +1,75 @@
+.hero { padding: 56px 0 48px; }
+.eyebrow {
+  display: flex; gap: 18px; align-items: center;
+  color: var(--ink-soft); margin-bottom: 32px;
+}
+.dash { width: 28px; height: 1px; background: var(--ink-soft); display: inline-block; }
+.h1 {
+  font-family: 'Sergio Trendy', 'Bricolage Grotesque', sans-serif;
+  font-weight: 800;
+  font-size: clamp(56px, 8.4vw, 124px);
+  line-height: 0.92; letter-spacing: -0.025em;
+  margin: 0 0 36px; text-transform: uppercase; color: var(--olive);
+}
+.green { color: var(--leaf); }
+.grid {
+  display: grid; grid-template-columns: 1.1fr 1fr;
+  gap: 48px; align-items: stretch;
+}
+.left { display: flex; flex-direction: column; justify-content: space-between; gap: 32px; }
+.sub { max-width: 520px; font-size: 17px; color: var(--ink-soft); }
+.lead { color: var(--ink); font-size: 20px; display: block; margin-bottom: 14px; font-weight: 500; }
+.meta {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 24px;
+  padding-top: 28px; border-top: 1px solid var(--rule);
+}
+.metaKey { color: var(--ink-soft); margin-bottom: 6px; }
+.metaVal { font-family: 'Sergio Trendy','Bricolage Grotesque',sans-serif; font-weight:700; font-size:18px; color:var(--olive); }
+
+/* Card */
+.card {
+  position: relative; border-radius: 8px; overflow: hidden;
+  background: radial-gradient(circle at 75% 30%, var(--leaf-bg-2) 0%, var(--leaf-bg) 45%, #1F5A1D 100%);
+  color: var(--cream); padding: 40px; min-height: 540px;
+  display: flex; flex-direction: column; justify-content: space-between;
+}
+.ghost {
+  position: absolute; top: 24px; left: -8px;
+  font-family: 'Sergio Trendy','Bricolage Grotesque',sans-serif; font-weight:800;
+  font-size: 180px; line-height: 0.85;
+  color: rgba(255,255,255,0.07); letter-spacing: -0.03em;
+  pointer-events: none; text-transform: uppercase; white-space: nowrap;
+}
+.cardTop { display: flex; justify-content: space-between; align-items: flex-start; position: relative; z-index: 2; }
+.badge { background: var(--cream); border-radius: 999px; padding: 6px 8px; }
+.priceCircles {
+  position: absolute; right: 36px; top: 50%; transform: translateY(-50%);
+  z-index: 3; display: flex; flex-direction: column; gap: 18px; align-items: flex-end;
+}
+.bubble {
+  width: 150px; height: 150px; border-radius: 50%;
+  background: rgba(255,255,255,0.18); border: 2px dashed rgba(255,255,255,0.65);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; backdrop-filter: blur(2px);
+}
+.bubbleBig { font-family:'Sergio Trendy','Bricolage Grotesque',sans-serif; font-weight:800; font-size:32px; line-height:1; color:var(--cream); }
+.bubbleLbl { font-size:12px; letter-spacing:0.08em; margin-top:6px; opacity:0.95; }
+.bubbleSmall { width: 120px; height: 120px; }
+.bubbleSmall .bubbleBig { font-size: 26px; }
+.cardBottom { position:relative; z-index:2; display:flex; justify-content:space-between; align-items:flex-end; gap:24px; }
+.cardH2 { font-family:'Sergio Trendy','Bricolage Grotesque',sans-serif; font-weight:800; font-size:56px; line-height:0.95; margin:0; color:var(--cream); text-transform:uppercase; letter-spacing:-0.02em; }
+.cardDesc { margin-top:12px; max-width:36ch; color:rgba(255,253,246,0.88); font-size:14px; line-height:1.5; }
+.freeDeliv { background:var(--cream); color:var(--olive); border-radius:8px; padding:14px 16px; text-align:center; min-width:120px; flex-shrink:0; font-size:11px; }
+.ico { width:36px; height:24px; margin:0 auto 8px; background:var(--olive); border-radius:3px; position:relative; }
+.ico::before { content:''; position:absolute; right:-10px; top:4px; width:12px; height:16px; background:var(--olive); border-radius:0 3px 3px 0; }
+.ico::after { content:''; position:absolute; left:4px; bottom:-4px; width:8px; height:8px; background:var(--cream); border:2px solid var(--olive); border-radius:50%; box-shadow:22px 0 0 -2px var(--cream),22px 0 0 0 var(--olive); }
+.freeLbl { background:var(--leaf); color:var(--cream); padding:4px 10px; border-radius:999px; font-weight:700; font-size:11px; letter-spacing:0.1em; display:inline-block; }
+
+@media (max-width: 1000px) {
+  .grid { grid-template-columns: 1fr; gap: 36px; }
+  .priceCircles { right: 16px; }
+  .bubble { width:110px; height:110px; }
+  .bubbleBig { font-size:22px; }
+  .card { padding:28px; min-height:480px; }
+  .cardH2 { font-size:38px; }
+}

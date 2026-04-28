@@ -1,0 +1,25 @@
+.toolbar { display:flex; gap:16px; margin-bottom:20px; flex-wrap:wrap; align-items:center; }
+.search { flex:1; min-width:220px; border:1.5px solid var(--rule); border-radius:8px; padding:10px 14px; font-size:14px; font-family:inherit; color:var(--ink); background:var(--cream); outline:none; }
+.search:focus { border-color:var(--leaf); }
+.filters { display:flex; gap:6px; flex-wrap:wrap; }
+.filterBtn { padding:6px 14px; border-radius:999px; border:1.5px solid var(--rule); background:var(--cream); font-size:12px; font-weight:600; color:var(--ink-soft); cursor:pointer; transition:all .15s; }
+.filterBtn:hover { border-color:var(--olive); color:var(--olive); }
+.active { background:var(--olive); border-color:var(--olive); color:var(--cream); }
+.tableWrap { overflow-x:auto; border-radius:12px; border:1px solid var(--rule-soft); background:var(--cream); }
+.table { width:100%; border-collapse:collapse; font-size:13px; }
+.table th { text-align:left; font-family:'JetBrains Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:0.1em; color:var(--ink-soft); padding:14px 16px; border-bottom:1px solid var(--rule); font-weight:500; white-space:nowrap; }
+.table td { padding:12px 16px; border-bottom:1px solid var(--rule-soft); vertical-align:top; }
+.table tr:last-child td { border-bottom:none; }
+.table tr:hover td { background:var(--paper); }
+.table strong { font-weight:600; color:var(--ink); }
+.phone { color:var(--leaf); font-size:12px; }
+.addr { color:var(--ink-soft); font-size:11px; }
+.peso { font-family:'Sergio Trendy','Bricolage Grotesque',sans-serif; font-weight:700; font-size:16px; color:var(--olive); white-space:nowrap; }
+.zone { font-family:'JetBrains Mono',monospace; font-size:10px; text-transform:uppercase; color:var(--ink-soft); }
+.badge { display:inline-block; padding:3px 10px; border-radius:999px; font-size:11px; font-weight:600; color:var(--ink); text-transform:capitalize; white-space:nowrap; }
+.date { font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--ink-soft); white-space:nowrap; }
+.date small { display:block; color:var(--ink-soft); }
+.statusSelect { border:1.5px solid var(--rule); border-radius:6px; padding:6px 10px; font-size:12px; font-family:inherit; color:var(--ink); background:var(--paper); cursor:pointer; outline:none; }
+.statusSelect:focus { border-color:var(--leaf); }
+.empty { text-align:center; padding:40px; color:var(--ink-soft); }
+.summary { margin-top:12px; font-size:12px; color:var(--ink-soft); font-family:'JetBrains Mono',monospace; text-transform:uppercase; letter-spacing:0.08em; }

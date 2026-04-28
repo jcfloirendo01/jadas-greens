@@ -1,0 +1,10 @@
+.section { padding:140px 0; background:radial-gradient(circle at 80% 20%,rgba(95,164,50,0.18) 0%,transparent 50%),var(--paper); }
+.grid { display:grid; grid-template-columns:1.2fr 1fr; gap:80px; align-items:center; }
+.h2 { font-family:'Sergio Trendy','Bricolage Grotesque',sans-serif; font-weight:800; font-size:clamp(48px,6.4vw,88px); line-height:0.94; letter-spacing:-0.025em; margin:0 0 24px; text-transform:uppercase; color:var(--olive); }
+.green { color:var(--leaf); }
+.section p { color:var(--ink-soft); font-size:17px; max-width:50ch; margin:0 0 28px; }
+.actions { display:flex; gap:12px; flex-wrap:wrap; }
+.qr { background:var(--cream); border:1px solid var(--rule-soft); border-radius:16px; padding:32px; text-align:center; box-shadow:0 30px 80px -40px rgba(42,47,26,0.3); }
+.qrLabel { color:var(--olive); font-family:'Sergio Trendy','Bricolage Grotesque',sans-serif; font-weight:700; font-size:18px; margin-top:16px; text-transform:uppercase; }
+.qr small { color:var(--ink-soft); display:block; margin-top:6px; }
+@media (max-width:1000px) { .grid { grid-template-columns:1fr; gap:36px; } }

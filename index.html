@@ -1,0 +1,1181 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Jada's Greens — Hydroponically Grown Lettuce · Cabuyao, Laguna</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper:      #FAF7EE;
+    --paper-2:    #F2EDDD;
+    --cream:      #FFFDF6;
+    --ink:        #2A2F1A;
+    --ink-soft:   #5A5E48;
+    --olive:      #3F4A1F;
+    --olive-deep: #2D3415;
+    --leaf:       #5FA432;
+    --leaf-soft:  #B7D391;
+    --leaf-bg:    #2E7D2A;
+    --leaf-bg-2:  #4FB342;
+    --rule:       rgba(42,47,26,0.16);
+    --rule-soft:  rgba(42,47,26,0.08);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+
+  /* Type */
+  .display { font-family: 'Sergio Trendy', 'Bricolage Grotesque', Georgia, serif; font-weight: 700; letter-spacing: -0.015em; }
+  .mono    { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; }
+
+  /* Layout */
+  .wrap { max-width: 1340px; margin: 0 auto; padding: 0 32px; }
+
+  /* Nav */
+  .nav {
+    position: sticky; top: 0; z-index: 50;
+    background: var(--paper);
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .nav-row {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    padding: 14px 0;
+    gap: 24px;
+  }
+  .brand {
+    display: flex; align-items: center; gap: 12px;
+    font-family: 'Sergio Trendy', 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 20px;
+    color: var(--olive);
+    text-transform: uppercase; letter-spacing: 0.01em;
+  }
+  .brand img { height: 44px; width: auto; display: block; }
+  .nav-links {
+    display: flex; gap: 30px; justify-content: center;
+  }
+  .nav-links a {
+    font-size: 14px; color: var(--olive);
+    font-weight: 500;
+  }
+  .nav-links a:hover { color: var(--leaf); }
+  .nav-cta {
+    justify-self: end;
+    display: flex; align-items: center; gap: 16px;
+  }
+  .nav-cta .mono { color: var(--ink-soft); }
+  .pill {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 11px 20px;
+    border: 1.5px solid var(--olive);
+    border-radius: 999px;
+    font-size: 13px; font-weight: 600;
+    background: transparent; color: var(--olive);
+    cursor: pointer;
+    transition: background .2s, color .2s;
+  }
+  .pill:hover { background: var(--olive); color: var(--cream); }
+  .pill .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--leaf); }
+  .pill.dark { background: var(--olive); color: var(--cream); }
+  .pill.dark:hover { background: var(--olive-deep); }
+  .pill.leaf { background: var(--leaf); border-color: var(--leaf); color: var(--cream); }
+  .pill.leaf:hover { background: #4F8C2A; border-color: #4F8C2A; }
+
+  /* Hero */
+  .hero {
+    padding: 56px 0 48px;
+  }
+  .hero-eyebrow {
+    display: flex; gap: 18px; align-items: center;
+    color: var(--ink-soft);
+    margin-bottom: 32px;
+  }
+  .hero-eyebrow .dash { width: 28px; height: 1px; background: var(--ink-soft); }
+  .hero h1 {
+    font-family: 'Sergio Trendy', 'Bricolage Grotesque', sans-serif;
+    font-weight: 800;
+    font-size: clamp(56px, 8.4vw, 124px);
+    line-height: 0.92;
+    letter-spacing: -0.025em;
+    margin: 0 0 36px;
+    text-transform: uppercase;
+    color: var(--olive);
+  }
+  .hero h1 .green { color: var(--leaf); }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 48px;
+    align-items: stretch;
+  }
+  .hero-left {
+    display: flex; flex-direction: column; justify-content: space-between;
+    gap: 32px;
+  }
+  .hero-sub {
+    max-width: 520px;
+    font-size: 17px;
+    color: var(--ink-soft);
+  }
+  .hero-sub .lead {
+    color: var(--ink);
+    font-size: 20px;
+    display: block;
+    margin-bottom: 14px;
+    font-weight: 500;
+  }
+  .hero-cta-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 12px; }
+  .hero-meta {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+    padding-top: 28px;
+    border-top: 1px solid var(--rule);
+  }
+  .hero-meta .k { color: var(--ink-soft); margin-bottom: 6px; }
+  .hero-meta .v { font-family: 'Sergio Trendy', 'Bricolage Grotesque', sans-serif; font-weight: 700; font-size: 18px; color: var(--olive); }
+
+  /* Hero card with banner-style green gradient */
+  .hero-card {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    background: radial-gradient(circle at 75% 30%, var(--leaf-bg-2) 0%, var(--leaf-bg) 45%, #1F5A1D 100%);
+    color: var(--cream);
+    padding: 40px;
+    min-height: 540px;
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .hero-card .ghost-text {
+    position: absolute;
+    top: 24px; left: -8px;
+    font-family: 'Sergio Trendy', 'Bricolage Grotesque', sans-serif; font-weight: 800;
+    font-size: 180px; line-height: 0.85;
+    color: rgba(255,255,255,0.07);
+    letter-spacing: -0.03em;
+    pointer-events: none;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .hero-card-top {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    position: relative; z-index: 2;
+  }
+  .hero-card .badge {
+    background: var(--cream);
+    border-radius: 999px;
+    padding: 6px 8px;
+  }
+  .hero-card .badge img { height: 64px; width: auto; display: block; }
+  .price-circles {
+    position: absolute;
+    right: 36px; top: 50%; transform: translateY(-50%);
+    z-index: 3;
+    display: flex; flex-direction: column; gap: 18px; align-items: flex-end;
+  }
+  .price-bubble {
+    width: 150px; height: 150px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.18);
+    border: 2px dashed rgba(255,255,255,0.65);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center;
+    backdrop-filter: blur(2px);
+  }
+  .price-bubble .big {
+    font-family: 'Sergio Trendy', 'Bricolage Grotesque', sans-serif; font-weight: 800;
+    font-size: 32px; line-height: 1; color: var(--cream);
+  }
+  .price-bubble .lbl { font-size: 12px; letter-spacing: 0.08em; margin-top: 6px; opacity: 0.95; }
+  .price-bubble.small { width: 120px; height: 120px; }
+  .price-bubble.small .big { font-size: 26px; }
+
+  .hero-card-bottom {
+    position: relative; z-index: 2;
+    display: flex; justify-content: space-between; align-items: flex-end;
+    gap: 24px;
+  }
+  .hero-card h2 {
+    font-family: 'Sergio Trendy', 'Bricolage Grotesque', sans-serif; font-weight: 800;
+    font-size: 56px; line-height: 0.95;
+    margin: 0; color: var(--cream);
+    text-transform: uppercase; letter-spacing: -0.02em;
+  }
+  .hero-card .desc {
+    margin-top: 12px; max-width: 36ch;
+    color: rgba(255,253,246,0.88);
+    font-size: 14px; line-height: 1.5;
+  }
+  .free-deliv {
+    background: var(--cream);
+    color: var(--olive);
+    border-radius: 8px;
+    padding: 14px 16px;
+    text-align: center;
+    min-width: 120px;
+    flex-shrink: 0;
+  }
+  .free-deliv .ico {
+    width: 36px; height: 24px; margin: 0 auto 8px;
+    background: var(--olive);
+    border-radius: 3px;
+    position: relative;
+  }
+  .free-deliv .ico::before {
+    content: ''; position: absolute;
+    right: -10px; top: 4px;
+    width: 12px; height: 16px;
+    background: var(--olive);
+    border-radius: 0 3px 3px 0;
+  }
+  .free-deliv .ico::after {
+    content: ''; position: absolute;
+    left: 4px; bottom: -4px;
+    width: 8px; height: 8px;
+    background: var(--cream);
+    border: 2px solid var(--olive);
+    border-radius: 50%;
+    box-shadow: 22px 0 0 -2px var(--cream), 22px 0 0 0 var(--olive);
+  }
+  .free-deliv .label {
+    background: var(--leaf);
+    color: var(--cream);
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-weight: 700; font-size: 11px;
+    letter-spacing: 0.1em;
+    display: inline-block;
+  }
+  .free-deliv small { display: block; font-size: 11px; color: var(--ink-soft); margin-top: 8px; }
+
+  /* Marquee */
+  .marquee {
+    background: var(--olive);
+    color: var(--cream);
+    padding: 16px 0;
+    overflow: hidden;
+    margin-top: 8px;
+  }
+  .marquee-track {
+    display: flex; gap: 56px;
+    align-items: center;
+    white-space: nowrap;
+    animation: scroll 32s linear infinite;
+    font-family: 'Sergio Trendy', 'Bricolage Grotesque', sans-serif; font-weight: 700;
+    font-size: 18px; text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .marquee-track > span {
+    display: inline-flex; align-items: center; gap: 18px;
+  }
+  .marquee-track .leaf-ico {
+    width: 18px; height: 18px;
+    background: var(--leaf-soft);
+    -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M12 2 C6 6 4 12 12 22 C20 12 18 6 12 2 Z' fill='black'/></svg>") center/contain no-repeat;
+            mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M12 2 C6 6 4 12 12 22 C20 12 18 6 12 2 Z' fill='black'/></svg>") center/contain no-repeat;
+  }
+  @keyframes scroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  section { padding: 120px 0; }
+  .section-head {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 40px;
+    margin-bottom: 64px;
+    align-items: start;
+  }
+  .section-head .label { color: var(--ink-soft); padding-top: 8px; }
+  .section-title {
+    font-family: 'Sergio Trendy', 'Bricolage Grotesque', sans-serif; font-weight: 800;
+    font-size: clamp(40px, 5vw, 64px);
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    margin: 0;
+    text-transform: uppercase;
+    max-width: 16ch;
+    color: var(--olive);
+  }
+  .section-title .green { color: var(--leaf); }
+
+  /* About / story */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+  .about-copy h2 {
+    font-family: 'Sergio Trendy', 'Bricolage Grotesque', sans-serif; font-weight: 800;
+    font-size: clamp(36px, 4.4vw, 56px);
+    line-height: 1.02;
+    text-transform: uppercase;
+    margin: 0 0 24px;
+    color: var(--olive);
+    letter-spacing: -0.02em;
+  }
+  .about-copy h2 .green { color: var(--leaf); }
+  .about-copy p {
+    color: var(--ink-soft); font-size: 17px; max-width: 50ch;
+    margin: 0 0 18px;
+  }
+  .about-tag {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--paper-2);
+    color: var(--olive);
+    padding: 8px 16px; border-radius: 999px;
+    margin-bottom: 24px;
+  }
+  .about-tag .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--leaf); }
+
+  .about-visual {
+    aspect-ratio: 1/1;
+    background: var(--cream);
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    padding: 48px;
+    position: relative;
+    overflow: hidden;
+  }
+  .about-visual::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      radial-gradient(circle at 20% 20%, rgba(95,164,50,0.08) 0%, transparent 35%),
+      radial-gradient(circle at 80% 80%, rgba(63,74,31,0.06) 0%, transparent 40%);
+  }
+  .about-visual img { max-width: 80%; max-height: 80%; position: relative; z-index: 2; }
+
+  /* Stats */
+  .stat-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .stat-strip .cell {
+    padding: 40px 28px;
+    border-right: 1px solid var(--rule);
+  }
+  .stat-strip .cell:last-child { border-right: none; }
+  .stat-strip .num {
+    font-family: 'Sergio Trendy', 'Bricolage Grotesque', sans-serif; font-weight: 800;
+    font-size: 56px; line-height: 1;
+    letter-spacing: -0.025em;
+    margin-bottom: 10px;
+    color: var(--olive);
+  }
+  .stat-strip .num .small { font-size: 22px; vertical-align: super; opacity: 0.7; margin-left: 4px; }
+  .stat-strip .label { color: var(--ink-soft); }
+
+  /* Varieties */
+  .varieties {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+    gap: 24px;
+  }
+  .variety {
+    background: var(--cream);
+    border: 1px solid var(--rule-soft);
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex; flex-direction: column;
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+  .variety:hover { transform: translateY(-4px); box-shadow: 0 18px 40px -20px rgba(42,47,26,0.25); }
+  .variety-img {
+    aspect-ratio: 16/11;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(165deg, var(--leaf-bg-2) 0%, var(--leaf-bg) 60%, #1F5A1D 100%);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .variety-img.upcoming-red {
+    background: linear-gradient(165deg, #C7553B 0%, #8C2C1B 100%);
+  }
+  .variety-img.upcoming-green {
+    background: linear-gradient(165deg, #95C455 0%, #4F8C2A 100%);
+  }
+  .variety-img .leaf-svg {
+    width: 70%; max-width: 320px;
+    filter: drop-shadow(0 12px 30px rgba(0,0,0,0.25));
+  }
+  .variety-tag {
+    position: absolute; top: 16px; left: 16px;
+    background: var(--cream);
+    color: var(--olive);
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    font-weight: 500;
+  }
+  .variety-tag.coming { background: var(--olive); color: var(--cream); }
+  .variety-body { padding: 28px 28px 32px; flex: 1; display: flex; flex-direction: column; }
+  .variety h3 {
+    font-family: 'Sergio Trendy', 'Bricolage Grotesque', sans-serif; font-weight: 800;
+    font-size: 32px; margin: 6px 0 6px;
+    text-transform: uppercase;
+    letter-spacing: -0.01em; color: var(--olive);
+    line-height: 1.05;
+  }
+  .variety .latin { color: var(--ink-soft); font-style: italic; font-size: 13px; }
+  .variety p { color: var(--ink-soft); font-size: 14px; margin: 14px 0 0; }
+  .variety-meta {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-top: auto; padding-top: 18px;
+    border-top: 1px solid var(--rule-soft);
+    color: var(--ink-soft);
+  }
+  .variety-meta .price {
+    color: var(--leaf);
+    font-family: 'Sergio Trendy', 'Bricolage Grotesque', sans-serif; font-weight: 700;
+    font-size: 22px;
+  }
+
+  /* Pricing block */
+  .pricing {
+    background: var(--olive);
+    color: var(--cream);
+    border-radius: 16px;
+    padding: 56px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .pricing::after {
+    content: '';
+    position: absolute; right: -80px; top: -60px;
+    width: 320px; height: 320px;
+    background: radial-gradient(circle, rgba(95,164,50,0.35) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .pricing h3 {
+    font-family: 'Sergio Trendy', 'Bricolage Grotesque', sans-serif; font-weight: 800;
+    font-size: 36px; margin: 0 0 12px;
+    text-transform: uppercase; line-height: 1;
+    color: var(--cream);
+  }
+  .pricing p { color: rgba(255,253,246,0.78); margin: 0; font-size: 15px; max-width: 32ch; }
+  .price-tile {
+    text-align: center;
+    padding: 28px 16px;
+    background: rgba(255,253,246,0.06);
+    border: 1.5px dashed rgba(255,253,246,0.4);
+    border-radius: 12px;
+    position: relative; z-index: 2;
+  }
+  .price-tile .big {
+    font-family: 'Sergio Trendy', 'Bricolage Grotesque', sans-serif; font-weight: 800;
+    font-size: 64px; line-height: 1; color: var(--leaf-soft);
+    letter-spacing: -0.02em;
+  }
+  .price-tile .big .peso { font-size: 32px; vertical-align: super; opacity: 0.85; }
+  .price-tile .lbl { margin-top: 6px; font-weight: 600; }
+  .price-tile small { display: block; color: rgba(255,253,246,0.6); margin-top: 6px; }
+
+  /* How it works */
+  .process {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 40px;
+  }
+  .process-steps { display: grid; gap: 0; }
+  .step {
+    display: grid;
+    grid-template-columns: 80px 1fr 1.2fr;
+    gap: 32px;
+    padding: 36px 0;
+    border-top: 1px solid var(--rule);
+    align-items: start;
+  }
+  .step:last-child { border-bottom: 1px solid var(--rule); }
+  .step .num {
+    font-family: 'Sergio Trendy', 'Bricolage Grotesque', sans-serif; font-weight: 800;
+    font-size: 40px; line-height: 1;
+    color: var(--leaf);
+  }
+  .step h3 {
+    font-family: 'Sergio Trendy', 'Bricolage Grotesque', sans-serif; font-weight: 800;
+    font-size: 28px; margin: 0;
+    text-transform: uppercase; letter-spacing: -0.01em;
+    color: var(--olive); line-height: 1.05;
+  }
+  .step p {
+    margin: 0; color: var(--ink-soft); font-size: 15px;
+  }
+
+  /* Delivery zone */
+  .delivery {
+    background: var(--paper-2);
+    padding: 120px 0;
+  }
+  .delivery-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;
+  }
+  .delivery h2 {
+    font-family: 'Sergio Trendy', 'Bricolage Grotesque', sans-serif; font-weight: 800;
+    font-size: clamp(40px, 5vw, 64px);
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    margin: 0 0 20px;
+    text-transform: uppercase;
+    color: var(--olive);
+  }
+  .delivery h2 .green { color: var(--leaf); }
+  .delivery p { color: var(--ink-soft); font-size: 17px; max-width: 48ch; margin: 0 0 24px; }
+  .deliv-list { list-style: none; padding: 0; margin: 24px 0 0; display: grid; gap: 0; }
+  .deliv-list li {
+    display: grid; grid-template-columns: 28px 1fr;
+    gap: 16px; padding: 16px 0;
+    border-top: 1px solid var(--rule);
+    align-items: start;
+  }
+  .deliv-list li:last-child { border-bottom: 1px solid var(--rule); }
+  .deliv-list .check {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--leaf);
+    color: var(--cream);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; flex-shrink: 0; margin-top: 2px;
+  }
+  .deliv-list h4 {
+    font-family: 'Sergio Trendy', 'Bricolage Grotesque', sans-serif; font-weight: 700;
+    font-size: 18px; margin: 0 0 4px;
+    text-transform: uppercase; color: var(--olive);
+  }
+  .deliv-list p { font-size: 14px; margin: 0; }
+  .map-card {
+    background: var(--olive);
+    border-radius: 16px;
+    padding: 40px;
+    aspect-ratio: 1/1;
+    position: relative;
+    overflow: hidden;
+    color: var(--cream);
+  }
+  .map-card .grid-bg {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,253,246,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,253,246,0.06) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+  .map-card .label {
+    position: relative;
+    color: rgba(255,253,246,0.7);
+  }
+  .gran-seville {
+    position: absolute;
+    inset: 18% 22% 22% 18%;
+    border: 1.5px dashed rgba(183,211,145,0.6);
+    border-radius: 30% 60% 40% 70% / 50% 30% 60% 40%;
+    background: rgba(95,164,50,0.12);
+  }
+  .farm-pin {
+    position: absolute;
+    top: 46%; left: 42%;
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: var(--leaf-soft);
+    box-shadow: 0 0 0 8px rgba(183,211,145,0.25);
+  }
+  .farm-pin::after {
+    content: ''; position: absolute; inset: -16px;
+    border-radius: 50%;
+    border: 1px solid rgba(183,211,145,0.5);
+    animation: pulse 2.6s ease-out infinite;
+  }
+  @keyframes pulse {
+    0% { transform: scale(0.6); opacity: 1; }
+    100% { transform: scale(2.4); opacity: 0; }
+  }
+  .pin-label {
+    position: absolute;
+    color: var(--cream);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 0.12em;
+    text-transform: uppercase;
+    background: var(--olive-deep);
+    padding: 6px 10px;
+    border-radius: 4px;
+  }
+
+  /* Order CTA */
+  .cta {
+    padding: 140px 0;
+    background:
+      radial-gradient(circle at 80% 20%, rgba(95,164,50,0.18) 0%, transparent 50%),
+      var(--paper);
+  }
+  .cta-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 80px; align-items: center;
+  }
+  .cta h2 {
+    font-family: 'Sergio Trendy', 'Bricolage Grotesque', sans-serif; font-weight: 800;
+    font-size: clamp(48px, 6.4vw, 88px);
+    line-height: 0.94;
+    letter-spacing: -0.025em;
+    margin: 0 0 24px;
+    text-transform: uppercase;
+    color: var(--olive);
+  }
+  .cta h2 .green { color: var(--leaf); }
+  .cta p { color: var(--ink-soft); font-size: 17px; max-width: 50ch; margin: 0 0 28px; }
+  .cta-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+  .qr-card {
+    background: var(--cream);
+    border: 1px solid var(--rule-soft);
+    border-radius: 16px;
+    padding: 32px;
+    text-align: center;
+    box-shadow: 0 30px 80px -40px rgba(42,47,26,0.3);
+  }
+  .qr-card img { max-width: 100%; height: auto; display: block; margin: 0 auto; }
+  .qr-card .label {
+    color: var(--olive);
+    font-family: 'Sergio Trendy', 'Bricolage Grotesque', sans-serif; font-weight: 700;
+    font-size: 18px; margin-top: 16px;
+    text-transform: uppercase;
+  }
+  .qr-card small { color: var(--ink-soft); display: block; margin-top: 6px; }
+
+  /* Footer */
+  footer {
+    background: var(--olive-deep);
+    color: rgba(255,253,246,0.72);
+    padding: 80px 0 32px;
+  }
+  .foot-grid {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 64px;
+  }
+  .foot-grid h5 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: rgba(255,253,246,0.5);
+    margin: 0 0 18px;
+    font-weight: 500;
+  }
+  .foot-grid ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+  .foot-grid a:hover { color: var(--cream); }
+  .foot-brand { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
+  .foot-brand img { height: 64px; }
+  .foot-brand .name {
+    font-family: 'Sergio Trendy', 'Bricolage Grotesque', sans-serif; font-weight: 800;
+    font-size: 26px; color: var(--cream);
+    text-transform: uppercase;
+  }
+  .foot-bottom {
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+    padding-top: 28px;
+    border-top: 1px solid rgba(255,253,246,0.15);
+    color: rgba(255,253,246,0.5);
+  }
+
+  /* Responsive */
+  @media (max-width: 1000px) {
+    .hero-grid, .about-grid, .delivery-grid, .cta-grid { grid-template-columns: 1fr; gap: 36px; }
+    .varieties { grid-template-columns: 1fr; }
+    .stat-strip { grid-template-columns: 1fr 1fr; }
+    .stat-strip .cell:nth-child(2) { border-right: none; }
+    .stat-strip .cell:nth-child(1), .stat-strip .cell:nth-child(2) { border-bottom: 1px solid var(--rule); }
+    .pricing { grid-template-columns: 1fr; padding: 36px; }
+    .section-head, .process { grid-template-columns: 1fr; gap: 16px; }
+    .step { grid-template-columns: 56px 1fr; }
+    .step p { grid-column: 1 / -1; }
+    .foot-grid { grid-template-columns: 1fr 1fr; }
+    .nav-links { display: none; }
+    .nav-row { grid-template-columns: 1fr auto; }
+    .price-circles { right: 16px; }
+    .price-bubble { width: 110px; height: 110px; }
+    .price-bubble .big { font-size: 22px; }
+    .hero-card { padding: 28px; min-height: 480px; }
+    .hero-card h2 { font-size: 38px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="wrap nav-row">
+    <div class="brand">
+      <img src="assets/logo-circle.png" alt="Jada's Greens">
+      <span>Jada's Greens</span>
+    </div>
+    <div class="nav-links">
+      <a href="#about">Our Farm</a>
+      <a href="#varieties">Lettuce</a>
+      <a href="#how">How We Grow</a>
+      <a href="#delivery">Delivery</a>
+      <a href="#order">Order</a>
+    </div>
+    <div class="nav-cta">
+      <span class="mono">📞 0976 092 0033</span>
+      <a class="pill leaf" href="#order"><span class="dot" style="background:var(--cream);"></span>Order Now</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-eyebrow">
+      <span class="mono">EST. 2024 · Cabuyao, Laguna</span>
+      <span class="dash"></span>
+      <span class="mono">Hydroponically Grown · Pesticide-Free</span>
+    </div>
+
+    <h1>
+      Fresh<br/>
+      <span class="green">Lettuce,</span><br/>
+      Grown Right Here.
+    </h1>
+
+    <div class="hero-grid">
+      <div class="hero-left">
+        <div class="hero-sub">
+          <span class="lead">Crisp, nutrient-rich hydroponic lettuce — grown sustainably without soil, harvested fresh, and delivered straight to your door in Gran Seville.</span>
+          A small family farm in Cabuyao, Laguna, growing clean, pesticide-free greens with a soft spot for our resident French bulldog mascot.
+        </div>
+        <div class="hero-cta-row">
+          <a class="pill leaf" href="#order"><span class="dot" style="background:var(--cream);"></span>Order Lettuce</a>
+          <a class="pill" href="#about">About the Farm →</a>
+        </div>
+        <div class="hero-meta">
+          <div>
+            <div class="k mono">Price</div>
+            <div class="v">₱40 / piece</div>
+          </div>
+          <div>
+            <div class="k mono">Bundle</div>
+            <div class="v">3 for ₱100</div>
+          </div>
+          <div>
+            <div class="k mono">Delivery</div>
+            <div class="v">Free in Gran Seville</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero card echoing the FB banner -->
+      <div class="hero-card">
+        <span class="ghost-text">100% HYDRO</span>
+        <div class="hero-card-top">
+          <div>
+            <span class="mono" style="color: rgba(255,253,246,0.85);">100% Hydroponic</span>
+          </div>
+          <div class="badge"><img src="assets/logo-circle.png" alt=""></div>
+        </div>
+
+        <div class="price-circles">
+          <div class="price-bubble">
+            <div class="big">3 for ₱100</div>
+            <div class="lbl">ONLY!</div>
+          </div>
+          <div class="price-bubble small">
+            <div class="big">₱40</div>
+            <div class="lbl">PER PIECE</div>
+          </div>
+        </div>
+
+        <div class="hero-card-bottom">
+          <div>
+            <h2>Fresh<br/>Lettuce</h2>
+            <p class="desc">Crisp, nutrient-rich hydroponic lettuce grown sustainably without soil — offering freshness, vibrant flavor, and eco-friendly appeal.</p>
+          </div>
+          <div class="free-deliv">
+            <div class="ico"></div>
+            <div class="label">FREE DELIVERY</div>
+            <small>within Gran Seville Subdivision</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- MARQUEE -->
+<div class="marquee">
+  <div class="marquee-track">
+    <span><i class="leaf-ico"></i> Olmetie Lettuce</span>
+    <span><i class="leaf-ico"></i> Hydroponically Grown</span>
+    <span><i class="leaf-ico"></i> No Soil</span>
+    <span><i class="leaf-ico"></i> No Pesticides</span>
+    <span><i class="leaf-ico"></i> Harvested Fresh</span>
+    <span><i class="leaf-ico"></i> ₱40 per piece</span>
+    <span><i class="leaf-ico"></i> 3 for ₱100</span>
+    <span><i class="leaf-ico"></i> Free Delivery</span>
+    <span><i class="leaf-ico"></i> Olmetie Lettuce</span>
+    <span><i class="leaf-ico"></i> Hydroponically Grown</span>
+    <span><i class="leaf-ico"></i> No Soil</span>
+    <span><i class="leaf-ico"></i> No Pesticides</span>
+    <span><i class="leaf-ico"></i> Harvested Fresh</span>
+    <span><i class="leaf-ico"></i> ₱40 per piece</span>
+    <span><i class="leaf-ico"></i> 3 for ₱100</span>
+    <span><i class="leaf-ico"></i> Free Delivery</span>
+  </div>
+</div>
+
+<!-- ABOUT / STORY -->
+<section id="about">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="about-copy">
+        <span class="about-tag"><span class="dot"></span><span class="mono">001 — Our Story</span></span>
+        <h2>A small farm,<br/><span class="green">a big crunch.</span></h2>
+        <p>
+          Jada's Greens started in 2024 in our backyard in Cabuyao, Laguna — a hydroponic setup born out of a simple idea: lettuce should taste like lettuce, and it shouldn't have to travel across the country to reach your salad bowl.
+        </p>
+        <p>
+          We grow our greens in nutrient-rich water — no soil, no pesticides, no chemicals. Just clean water, sunlight, and a lot of care. Every head is harvested by hand, washed, and delivered the same day to neighbours within Gran Seville.
+        </p>
+        <p>
+          And yes — that little french bulldog on our logo is real. He supervises every harvest.
+        </p>
+        <div class="hero-cta-row" style="margin-top: 24px;">
+          <a class="pill dark" href="#order"><span class="dot"></span>Get a Bundle</a>
+          <a class="pill" href="#how">See How We Grow →</a>
+        </div>
+      </div>
+      <div class="about-visual">
+        <img src="assets/logo-badge.png" alt="Jada's Greens — Hydroponically Grown, Est. 2024">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS STRIP -->
+<div class="wrap">
+  <div class="stat-strip">
+    <div class="cell">
+      <div class="num">1<span class="small">variety</span></div>
+      <div class="label mono">Olmetie — currently</div>
+    </div>
+    <div class="cell">
+      <div class="num">2<span class="small">soon</span></div>
+      <div class="label mono">Thurinus + Rincon — coming</div>
+    </div>
+    <div class="cell">
+      <div class="num">0<span class="small">soil</span></div>
+      <div class="label mono">100% hydroponic</div>
+    </div>
+    <div class="cell">
+      <div class="num">2024<span class="small"></span></div>
+      <div class="label mono">Family farm, est.</div>
+    </div>
+  </div>
+</div>
+
+<!-- VARIETIES -->
+<section id="varieties">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="mono label">002 — The Lettuce</span>
+      <h2 class="section-title">What We're<br/><span class="green">Growing.</span></h2>
+    </div>
+
+    <div class="varieties">
+      <article class="variety">
+        <div class="variety-img">
+          <span class="variety-tag">In Season ✓</span>
+          <svg class="leaf-svg" viewBox="0 0 200 180" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="lett1" cx="50%" cy="40%" r="60%">
+                <stop offset="0%" stop-color="#B7E287"/>
+                <stop offset="60%" stop-color="#5FA432"/>
+                <stop offset="100%" stop-color="#3F6E1F"/>
+              </radialGradient>
+            </defs>
+            <g fill="url(#lett1)" stroke="#2D3415" stroke-width="1.5" stroke-linejoin="round">
+              <path d="M100 30 C 60 30, 30 60, 35 100 C 20 95, 10 110, 20 130 C 5 135, 10 160, 40 160 C 50 175, 90 175, 100 165 C 110 175, 150 175, 160 160 C 190 160, 195 135, 180 130 C 190 110, 180 95, 165 100 C 170 60, 140 30, 100 30 Z"/>
+            </g>
+            <g fill="none" stroke="#2D3415" stroke-width="1" opacity="0.5">
+              <path d="M70 60 Q 80 90, 75 130"/>
+              <path d="M100 50 Q 100 100, 100 160"/>
+              <path d="M130 60 Q 120 90, 125 130"/>
+            </g>
+          </svg>
+        </div>
+        <div class="variety-body">
+          <span class="mono" style="color:var(--ink-soft);">Curly · Crisp · Fresh</span>
+          <h3>Olmetie</h3>
+          <span class="latin">Lactuca sativa — green leaf lettuce</span>
+          <p>Our flagship — and currently our only — variety. Frilly, bright green leaves with a soft, fresh crunch. Beautiful in salads, wraps, or piled high on a sandwich. Harvested whole-head, with roots on for longer life in your fridge.</p>
+          <div class="variety-meta">
+            <span class="price">₱40 / pc · 3 for ₱100</span>
+            <span class="mono">Available now</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="variety">
+        <div class="variety-img upcoming-red">
+          <span class="variety-tag coming">Coming Soon</span>
+          <svg class="leaf-svg" viewBox="0 0 200 180" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="lett2" cx="50%" cy="40%" r="60%">
+                <stop offset="0%" stop-color="#E08A6F"/>
+                <stop offset="55%" stop-color="#A93D27"/>
+                <stop offset="100%" stop-color="#5C1F12"/>
+              </radialGradient>
+            </defs>
+            <g fill="url(#lett2)" stroke="#2D1009" stroke-width="1.5" stroke-linejoin="round">
+              <path d="M100 25 C 75 25, 60 50, 65 80 C 55 78, 50 95, 60 110 C 50 115, 55 140, 75 145 C 80 165, 95 170, 100 168 C 105 170, 120 165, 125 145 C 145 140, 150 115, 140 110 C 150 95, 145 78, 135 80 C 140 50, 125 25, 100 25 Z"/>
+            </g>
+            <g fill="none" stroke="#2D1009" stroke-width="1" opacity="0.5">
+              <path d="M85 50 Q 90 100, 88 160"/>
+              <path d="M100 40 Q 100 100, 100 168"/>
+              <path d="M115 50 Q 110 100, 112 160"/>
+            </g>
+          </svg>
+        </div>
+        <div class="variety-body">
+          <span class="mono" style="color:var(--ink-soft);">Upright · Sweet · Ruby</span>
+          <h3>Thurinus</h3>
+          <span class="latin">Red Romaine — coming soon</span>
+          <p>Tall, upright heads with deep ruby tips and a sweet, slightly nutty crunch. Perfect for caesar salads with a twist of color, or grilled cut-side down.</p>
+          <div class="variety-meta">
+            <span class="price">Pricing soon</span>
+            <span class="mono">Next planting</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="variety">
+        <div class="variety-img upcoming-green">
+          <span class="variety-tag coming">Coming Soon</span>
+          <svg class="leaf-svg" viewBox="0 0 200 180" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="lett3" cx="50%" cy="40%" r="60%">
+                <stop offset="0%" stop-color="#D4E89C"/>
+                <stop offset="55%" stop-color="#7BB13C"/>
+                <stop offset="100%" stop-color="#3F6E1F"/>
+              </radialGradient>
+            </defs>
+            <g fill="url(#lett3)" stroke="#2D3415" stroke-width="1.5" stroke-linejoin="round">
+              <path d="M100 25 C 75 25, 60 50, 65 80 C 55 78, 50 95, 60 110 C 50 115, 55 140, 75 145 C 80 165, 95 170, 100 168 C 105 170, 120 165, 125 145 C 145 140, 150 115, 140 110 C 150 95, 145 78, 135 80 C 140 50, 125 25, 100 25 Z"/>
+            </g>
+            <g fill="none" stroke="#2D3415" stroke-width="1" opacity="0.5">
+              <path d="M85 50 Q 90 100, 88 160"/>
+              <path d="M100 40 Q 100 100, 100 168"/>
+              <path d="M115 50 Q 110 100, 112 160"/>
+            </g>
+          </svg>
+        </div>
+        <div class="variety-body">
+          <span class="mono" style="color:var(--ink-soft);">Upright · Crisp · Bright</span>
+          <h3>Rincon</h3>
+          <span class="latin">Green Romaine — coming soon</span>
+          <p>Classic green romaine — tall, ribbed leaves with a satisfying crunch and clean flavor. The salad-bowl workhorse, ready for caesar, BLTs, or wraps.</p>
+          <div class="variety-meta">
+            <span class="price">Pricing soon</span>
+            <span class="mono">Next planting</span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING BLOCK -->
+<div class="wrap" style="margin-bottom: 120px;">
+  <div class="pricing">
+    <div>
+      <span class="mono" style="color: var(--leaf-soft);">003 — Pricing</span>
+      <h3>Simple,<br/>Honest Pricing.</h3>
+      <p>One variety, two ways to buy. Order via Facebook or call us — we'll harvest the same day and deliver free within Gran Seville Subdivision.</p>
+    </div>
+    <div class="price-tile">
+      <div class="big"><span class="peso">₱</span>40</div>
+      <div class="lbl">Per Piece</div>
+      <small>Single head, root on</small>
+    </div>
+    <div class="price-tile">
+      <div class="big"><span class="peso">₱</span>100</div>
+      <div class="lbl">3 Pieces — Best Value</div>
+      <small>Save ₱20 vs. buying singly</small>
+    </div>
+  </div>
+</div>
+
+<!-- HOW WE GROW -->
+<section id="how" style="padding-top: 0;">
+  <div class="wrap">
+    <div class="process">
+      <div>
+        <span class="mono label" style="color:var(--ink-soft);">004 — How we grow</span>
+        <h2 class="section-title" style="margin-top: 16px;">Soil-free,<br/><span class="green">fuss-free.</span></h2>
+      </div>
+      <div class="process-steps">
+        <div class="step">
+          <div class="num">01</div>
+          <h3>Seed</h3>
+          <p>Non-GMO Olmetie seeds nestle into a soil-free plug. The plug holds the seedling steady while roots develop in clean water.</p>
+        </div>
+        <div class="step">
+          <div class="num">02</div>
+          <h3>Float</h3>
+          <p>Plugs are transferred into our hydroponic channels. Roots dangle in nutrient-rich water that recirculates around the clock — no waste, no runoff.</p>
+        </div>
+        <div class="step">
+          <div class="num">03</div>
+          <h3>Tend</h3>
+          <p>We check the water's nutrients and pH every day. No pesticides, no chemicals. Just care, sunlight, and clean water doing what they do best.</p>
+        </div>
+        <div class="step">
+          <div class="num">04</div>
+          <h3>Harvest</h3>
+          <p>Heads are cut by hand the morning of delivery — roots still on so they keep growing in your fridge. Crisp on Tuesday. Crisp on Friday.</p>
+        </div>
+        <div class="step">
+          <div class="num">05</div>
+          <h3>Deliver</h3>
+          <p>We bring it straight to your gate within Gran Seville Subdivision — free. Outside the subdivision? Just message us; we work it out.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DELIVERY -->
+<section id="delivery" class="delivery">
+  <div class="wrap">
+    <div class="delivery-grid">
+      <div>
+        <span class="mono label" style="color:var(--ink-soft);">005 — Where we deliver</span>
+        <h2 style="margin-top: 16px;">Free Delivery,<br/>Right to Your <span class="green">Gate.</span></h2>
+        <p>Place your order, and we'll bring fresh-cut Olmetie lettuce straight to your doorstep — same-day, no fees, no minimums within Gran Seville.</p>
+        <ul class="deliv-list">
+          <li>
+            <span class="check">✓</span>
+            <div>
+              <h4>Gran Seville Subdivision</h4>
+              <p>Free same-day delivery. No minimum order — even one head, we'll bring it.</p>
+            </div>
+          </li>
+          <li>
+            <span class="check">✓</span>
+            <div>
+              <h4>Banlic, Cabuyao</h4>
+              <p>Pickup at the farm — Block 10B Lot 7 Almeria St., or arrange delivery for a small fee.</p>
+            </div>
+          </li>
+          <li>
+            <span class="check">✓</span>
+            <div>
+              <h4>Cabuyao &amp; nearby Laguna</h4>
+              <p>Message us — we'll meet you halfway or arrange a courier. Lalamove / Grab welcome.</p>
+            </div>
+          </li>
+        </ul>
+        <div class="hero-cta-row" style="margin-top: 28px;">
+          <a class="pill leaf" href="tel:09760920033"><span class="dot" style="background:var(--cream);"></span>Call 0976 092 0033</a>
+          <a class="pill" href="https://www.facebook.com/people/Jadas-Greens/61568664689559/" target="_blank" rel="noopener">Message on Facebook →</a>
+        </div>
+      </div>
+
+      <div class="map-card">
+        <div class="grid-bg"></div>
+        <div class="label mono" style="position:relative; z-index:2;">Gran Seville · Banlic, Cabuyao</div>
+        <div class="gran-seville"></div>
+        <div class="farm-pin"></div>
+        <span class="pin-label" style="top: 38%; left: 48%; transform: translateX(8px);">🌱 Jada's Greens Farm</span>
+        <span class="pin-label" style="bottom: 36px; left: 36px; right: 36px; text-align: center;">📍 Block 10B Lot 7 Almeria St., Gran Seville</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ORDER / CTA -->
+<section id="order" class="cta">
+  <div class="wrap">
+    <div class="cta-grid">
+      <div>
+        <span class="mono" style="color:var(--ink-soft);">006 — Order today</span>
+        <h2 style="margin-top: 16px;">Crisp Lettuce,<br/><span class="green">A Tap Away.</span></h2>
+        <p>Scan the code, message us on Facebook, or call. We'll harvest in the morning and deliver free within Gran Seville. Outside the subdivision? Just ask — we're flexible.</p>
+        <div class="cta-actions">
+          <a class="pill leaf" href="tel:09760920033"><span class="dot" style="background:var(--cream);"></span>Call 0976 092 0033</a>
+          <a class="pill dark" href="https://www.facebook.com/people/Jadas-Greens/61568664689559/" target="_blank" rel="noopener"><span class="dot"></span>Facebook Page</a>
+        </div>
+      </div>
+      <div class="qr-card">
+        <img src="assets/sticker-qr.png" alt="Scan to visit Jada's Greens on Facebook">
+        <div class="label">Scan to Order</div>
+        <small>Opens our Facebook page</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand">
+          <img src="assets/logo-circle.png" alt="">
+          <span class="name">Jada's Greens</span>
+        </div>
+        <p style="max-width:36ch; font-size:14px;">A small hydroponic lettuce farm in Cabuyao, Laguna. Hydroponically grown, family run, and supervised by one very dedicated french bulldog. Est. 2024.</p>
+      </div>
+      <div>
+        <h5>Visit</h5>
+        <ul>
+          <li>Block 10B Lot 7</li>
+          <li>Almeria St., Gran Seville</li>
+          <li>Banlic, Cabuyao</li>
+          <li>Laguna, Philippines</li>
+        </ul>
+      </div>
+      <div>
+        <h5>Contact</h5>
+        <ul>
+          <li><a href="tel:09760920033">📞 0976 092 0033</a></li>
+          <li><a href="https://www.facebook.com/people/Jadas-Greens/61568664689559/" target="_blank" rel="noopener">Facebook Page</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Site</h5>
+        <ul>
+          <li><a href="#about">Our Farm</a></li>
+          <li><a href="#varieties">Lettuce</a></li>
+          <li><a href="#how">How We Grow</a></li>
+          <li><a href="#order">Order</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span class="mono">© 2026 Jada's Greens · Cabuyao, Laguna</span>
+      <span class="mono">Hydroponically Grown · Est. 2024</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

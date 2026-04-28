@@ -1,0 +1,15 @@
+.sidebar { width:240px; flex-shrink:0; background:var(--olive-deep); color:var(--cream); display:flex; flex-direction:column; height:100vh; position:sticky; top:0; }
+.brand { display:flex; align-items:center; gap:12px; padding:24px 20px 20px; border-bottom:1px solid rgba(255,253,246,0.1); }
+.brandName { font-family:'Sergio Trendy','Bricolage Grotesque',sans-serif; font-weight:800; font-size:15px; text-transform:uppercase; color:var(--cream); }
+.brandSub { font-family:'JetBrains Mono',monospace; font-size:9px; text-transform:uppercase; letter-spacing:0.14em; color:rgba(255,253,246,0.45); margin-top:2px; }
+.nav { flex:1; padding:16px 12px; display:flex; flex-direction:column; gap:4px; }
+.item { display:flex; align-items:center; gap:12px; padding:10px 12px; border-radius:8px; font-size:14px; font-weight:500; color:rgba(255,253,246,0.7); transition:background .15s,color .15s; }
+.item:hover { background:rgba(255,253,246,0.08); color:var(--cream); }
+.active { background:rgba(95,164,50,0.25); color:var(--cream); }
+.icon { font-size:16px; width:20px; text-align:center; }
+.footer { padding:16px 12px 24px; border-top:1px solid rgba(255,253,246,0.1); display:flex; flex-direction:column; gap:8px; }
+.viewSite,.signOut { display:block; padding:8px 12px; border-radius:8px; font-size:13px; font-weight:500; text-align:left; transition:background .15s; }
+.viewSite { color:rgba(255,253,246,0.6); }
+.viewSite:hover { background:rgba(255,253,246,0.08); color:var(--cream); }
+.signOut { background:none; border:none; cursor:pointer; color:rgba(255,253,246,0.5); font-family:inherit; }
+.signOut:hover { background:rgba(220,50,50,0.2); color:#FCA5A5; }

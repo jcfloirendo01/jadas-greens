@@ -1,0 +1,8 @@
+.shell { display:flex; min-height:100vh; background:var(--paper); }
+.main { flex:1; padding:40px 48px; overflow-y:auto; }
+.pageTitle { font-family:'Sergio Trendy','Bricolage Grotesque',sans-serif; font-weight:800; font-size:32px; text-transform:uppercase; color:var(--olive); letter-spacing:-0.01em; margin:0 0 8px; }
+.pageSub { color:var(--ink-soft); font-size:14px; margin:0 0 40px; }
+@media (max-width:900px) {
+  .shell { flex-direction:column; }
+  .main { padding:24px 20px; }
+}

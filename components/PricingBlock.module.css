@@ -1,0 +1,10 @@
+.block { background:var(--olive); color:var(--cream); border-radius:16px; padding:56px; display:grid; grid-template-columns:1fr 1fr 1fr; gap:40px; align-items:center; position:relative; overflow:hidden; }
+.block::after { content:''; position:absolute; right:-80px; top:-60px; width:320px; height:320px; background:radial-gradient(circle,rgba(95,164,50,0.35) 0%,transparent 70%); border-radius:50%; }
+.h3 { font-family:'Sergio Trendy','Bricolage Grotesque',sans-serif; font-weight:800; font-size:36px; margin:8px 0 12px; text-transform:uppercase; line-height:1; color:var(--cream); }
+.block p { color:rgba(255,253,246,0.78); margin:0; font-size:15px; max-width:32ch; }
+.tile { text-align:center; padding:28px 16px; background:rgba(255,253,246,0.06); border:1.5px dashed rgba(255,253,246,0.4); border-radius:12px; position:relative; z-index:2; }
+.big { font-family:'Sergio Trendy','Bricolage Grotesque',sans-serif; font-weight:800; font-size:64px; line-height:1; color:var(--leaf-soft); letter-spacing:-0.02em; }
+.peso { font-size:32px; vertical-align:super; opacity:0.85; }
+.lbl { margin-top:6px; font-weight:600; }
+.tile small { display:block; color:rgba(255,253,246,0.6); margin-top:6px; }
+@media (max-width:1000px) { .block { grid-template-columns:1fr; padding:36px; } }

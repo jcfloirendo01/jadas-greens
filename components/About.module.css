@@ -1,0 +1,20 @@
+.section { padding: 120px 0; }
+.grid { display:grid; grid-template-columns:1.1fr 1fr; gap:64px; align-items:center; }
+.copy h2, .h2 {
+  font-family:'Sergio Trendy','Bricolage Grotesque',sans-serif; font-weight:800;
+  font-size:clamp(36px,4.4vw,56px); line-height:1.02; text-transform:uppercase;
+  margin:0 0 24px; color:var(--olive); letter-spacing:-0.02em;
+}
+.green { color:var(--leaf); }
+.copy p { color:var(--ink-soft); font-size:17px; max-width:50ch; margin:0 0 18px; }
+.tag { display:inline-flex; align-items:center; gap:10px; background:var(--paper-2); color:var(--olive); padding:8px 16px; border-radius:999px; margin-bottom:24px; }
+.dot { width:8px; height:8px; border-radius:50%; background:var(--leaf); display:inline-block; }
+.visual {
+  aspect-ratio:1/1; background:var(--cream); border:1px solid var(--rule); border-radius:12px;
+  display:flex; align-items:center; justify-content:center; padding:48px; position:relative; overflow:hidden;
+}
+.visual::before {
+  content:''; position:absolute; inset:0;
+  background-image: radial-gradient(circle at 20% 20%,rgba(95,164,50,0.08) 0%,transparent 35%), radial-gradient(circle at 80% 80%,rgba(63,74,31,0.06) 0%,transparent 40%);
+}
+@media (max-width:1000px) { .grid { grid-template-columns:1fr; gap:36px; } }

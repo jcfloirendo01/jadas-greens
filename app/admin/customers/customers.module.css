@@ -1,0 +1,13 @@
+.tableWrap { overflow-x:auto; border-radius:12px; border:1px solid var(--rule-soft); background:var(--cream); }
+.table { width:100%; border-collapse:collapse; font-size:13px; }
+.table th { text-align:left; font-family:'JetBrains Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:0.1em; color:var(--ink-soft); padding:14px 16px; border-bottom:1px solid var(--rule); font-weight:500; }
+.table td { padding:12px 16px; border-bottom:1px solid var(--rule-soft); vertical-align:top; }
+.table tr:last-child td { border-bottom:none; }
+.table tr:hover td { background:var(--paper); }
+.table strong { font-weight:600; color:var(--ink); }
+.phone { color:var(--leaf); font-size:13px; }
+.addr { color:var(--ink-soft); font-size:12px; max-width:200px; }
+.center { text-align:center; font-family:'Sergio Trendy','Bricolage Grotesque',sans-serif; font-weight:700; color:var(--olive); }
+.peso { font-family:'Sergio Trendy','Bricolage Grotesque',sans-serif; font-weight:700; font-size:15px; color:var(--olive); }
+.date { font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--ink-soft); white-space:nowrap; }
+.empty { text-align:center; padding:40px; color:var(--ink-soft); }

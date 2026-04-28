@@ -1,0 +1,28 @@
+.statsGrid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:32px; }
+.stat { background:var(--cream); border:1px solid var(--rule-soft); border-radius:12px; padding:24px 28px; }
+.accent { background:var(--olive); color:var(--cream); }
+.accent .statLabel { color:rgba(255,253,246,0.65); }
+.accent .statSub { color:rgba(255,253,246,0.5); }
+.statVal { font-family:'Sergio Trendy','Bricolage Grotesque',sans-serif; font-weight:800; font-size:36px; color:inherit; letter-spacing:-0.02em; line-height:1; margin-bottom:6px; }
+.accent .statVal { color:var(--leaf-soft); }
+.statLabel { font-size:13px; font-weight:600; color:var(--ink-soft); text-transform:uppercase; letter-spacing:0.06em; }
+.statSub { font-size:12px; color:var(--ink-soft); margin-top:4px; }
+.twoCol { display:grid; grid-template-columns:1fr 1.4fr; gap:24px; }
+.card { background:var(--cream); border:1px solid var(--rule-soft); border-radius:12px; padding:28px; }
+.cardTitle { font-family:'Sergio Trendy','Bricolage Grotesque',sans-serif; font-weight:800; font-size:18px; text-transform:uppercase; color:var(--olive); margin:0 0 20px; letter-spacing:-0.01em; }
+/* Bar chart */
+.chart { display:flex; align-items:flex-end; gap:8px; height:160px; }
+.bar { flex:1; display:flex; flex-direction:column; align-items:center; height:100%; justify-content:flex-end; gap:4px; }
+.barFill { width:100%; background:var(--leaf); border-radius:4px 4px 0 0; min-height:4px; transition:height .3s; }
+.barVal { font-size:10px; color:var(--ink-soft); white-space:nowrap; }
+.barLbl { font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--ink-soft); text-transform:uppercase; }
+/* Table */
+.table { width:100%; border-collapse:collapse; font-size:13px; }
+.table th { text-align:left; font-family:'JetBrains Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:0.1em; color:var(--ink-soft); padding:0 0 10px; border-bottom:1px solid var(--rule); font-weight:500; }
+.table td { padding:10px 0; border-bottom:1px solid var(--rule-soft); vertical-align:top; }
+.table td strong { font-weight:600; color:var(--ink); }
+.table td small { color:var(--ink-soft); font-size:11px; }
+.badge { display:inline-block; padding:3px 10px; border-radius:999px; font-size:11px; font-weight:600; color:var(--ink); }
+.mono { font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--ink-soft); white-space:nowrap; }
+@media (max-width:1100px) { .statsGrid { grid-template-columns:repeat(2,1fr); } .twoCol { grid-template-columns:1fr; } }
+@media (max-width:640px) { .statsGrid { grid-template-columns:1fr 1fr; } }

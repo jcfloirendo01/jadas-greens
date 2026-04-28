@@ -1,0 +1,20 @@
+.section { background:var(--paper-2); padding:120px 0; }
+.grid { display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:center; }
+.h2 { font-family:'Sergio Trendy','Bricolage Grotesque',sans-serif; font-weight:800; font-size:clamp(40px,5vw,64px); line-height:1; letter-spacing:-0.02em; margin:0 0 20px; text-transform:uppercase; color:var(--olive); }
+.green { color:var(--leaf); }
+.section > .wrap > div > p { color:var(--ink-soft); font-size:17px; max-width:48ch; margin:0 0 24px; }
+.list { list-style:none; padding:0; margin:24px 0 0; display:grid; gap:0; }
+.list li { display:grid; grid-template-columns:28px 1fr; gap:16px; padding:16px 0; border-top:1px solid var(--rule); align-items:start; }
+.list li:last-child { border-bottom:1px solid var(--rule); }
+.check { width:22px; height:22px; border-radius:50%; background:var(--leaf); color:var(--cream); display:flex; align-items:center; justify-content:center; font-size:14px; flex-shrink:0; margin-top:2px; }
+.list h4 { font-family:'Sergio Trendy','Bricolage Grotesque',sans-serif; font-weight:700; font-size:18px; margin:0 0 4px; text-transform:uppercase; color:var(--olive); }
+.list p { font-size:14px; margin:0; color:var(--ink-soft); }
+.map { background:var(--olive); border-radius:16px; padding:40px; aspect-ratio:1/1; position:relative; overflow:hidden; color:var(--cream); }
+.mapGrid { position:absolute; inset:0; background-image:linear-gradient(rgba(255,253,246,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,253,246,0.06) 1px,transparent 1px); background-size:40px 40px; }
+.zone { position:absolute; inset:18% 22% 22% 18%; border:1.5px dashed rgba(183,211,145,0.6); border-radius:30% 60% 40% 70%/50% 30% 60% 40%; background:rgba(95,164,50,0.12); }
+.pin { position:absolute; top:46%; left:42%; width:18px; height:18px; border-radius:50%; background:var(--leaf-soft); box-shadow:0 0 0 8px rgba(183,211,145,0.25); }
+.pin::after { content:''; position:absolute; inset:-16px; border-radius:50%; border:1px solid rgba(183,211,145,0.5); animation:pulse 2.6s ease-out infinite; }
+.label { position:absolute; color:var(--cream); font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.12em; text-transform:uppercase; background:var(--olive-deep); padding:6px 10px; border-radius:4px; }
+.labelFarm { top:38%; left:48%; transform:translateX(8px); }
+.labelAddr { bottom:36px; left:36px; right:36px; text-align:center; }
+@media (max-width:1000px) { .grid { grid-template-columns:1fr; gap:36px; } }

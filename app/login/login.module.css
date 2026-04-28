@@ -1,0 +1,14 @@
+.page { min-height:100vh; display:flex; align-items:center; justify-content:center; background:var(--paper); padding:20px; }
+.card { background:var(--cream); border:1px solid var(--rule-soft); border-radius:16px; padding:48px 40px; width:100%; max-width:400px; box-shadow:0 24px 64px -32px rgba(42,47,26,0.2); text-align:center; }
+.logo { font-size:48px; margin-bottom:12px; }
+.h1 { font-family:'Sergio Trendy','Bricolage Grotesque',sans-serif; font-weight:800; font-size:28px; text-transform:uppercase; color:var(--olive); margin:0 0 4px; }
+.sub { color:var(--ink-soft); font-size:13px; margin:0 0 32px; font-family:'JetBrains Mono',monospace; text-transform:uppercase; letter-spacing:0.1em; }
+.form { text-align:left; }
+.field { display:flex; flex-direction:column; gap:6px; margin-bottom:18px; }
+.field label { font-size:11px; font-weight:600; color:var(--ink-soft); text-transform:uppercase; letter-spacing:0.1em; font-family:'JetBrains Mono',monospace; }
+.field input { border:1.5px solid var(--rule); border-radius:8px; padding:12px 14px; font-size:15px; font-family:inherit; color:var(--ink); background:var(--paper); outline:none; transition:border-color .2s; }
+.field input:focus { border-color:var(--leaf); }
+.error { background:#FEF2F2; color:#991B1B; padding:10px 14px; border-radius:8px; font-size:13px; margin-bottom:16px; }
+.btn { width:100%; padding:14px; background:var(--olive); color:var(--cream); border:none; border-radius:8px; font-size:15px; font-weight:700; cursor:pointer; transition:background .2s; font-family:'Sergio Trendy','Bricolage Grotesque',sans-serif; text-transform:uppercase; letter-spacing:0.04em; }
+.btn:hover { background:var(--olive-deep); }
+.btn:disabled { opacity:0.65; cursor:not-allowed; }
