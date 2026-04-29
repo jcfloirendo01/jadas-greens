@@ -8,7 +8,7 @@ const items = [
 export default function Marquee() {
   const doubled = [...items, ...items];
   return (
-    <div className={styles.marquee}>
+    <div className={styles.marquee} data-marquee>
       <div className={styles.track}>
         {doubled.map((item, i) => (
           <span key={i}><i className={styles.leaf} />{item}</span>

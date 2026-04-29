@@ -1,0 +1,88 @@
+.wrap {
+  background: var(--cream);
+  border: 1px solid var(--rule-soft);
+  border-radius: 12px;
+  padding: 24px 28px 16px;
+}
+
+.head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--ink-soft);
+  margin-bottom: 4px;
+}
+
+.total {
+  font-family: 'Sergio Trendy', 'Bricolage Grotesque', sans-serif;
+  font-weight: 800;
+  font-size: 28px;
+  color: var(--olive);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.tabs {
+  display: flex;
+  gap: 4px;
+  background: var(--paper);
+  border: 1px solid var(--rule-soft);
+  border-radius: 8px;
+  padding: 3px;
+}
+
+.tab {
+  padding: 5px 12px;
+  border-radius: 6px;
+  border: none;
+  background: none;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: background .15s, color .15s;
+}
+.tab:hover { color: var(--olive); }
+.tabActive {
+  background: var(--cream);
+  color: var(--olive);
+  box-shadow: 0 1px 4px rgba(42,47,26,0.10);
+}
+
+.tooltip {
+  background: var(--olive-deep);
+  color: var(--cream);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 12px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+}
+.tooltipLabel {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  opacity: 0.65;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 4px;
+}
+.tooltipRevenue {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 800;
+  font-size: 18px;
+  color: var(--leaf-soft);
+}
+.tooltipOrders {
+  font-size: 11px;
+  opacity: 0.65;
+  margin-top: 2px;
+}

@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { createClient } from "@/lib/supabase";
 import type { Order, OrderStatus } from "@/lib/types";
+import ExportButton from "@/components/admin/ExportButton";
 import styles from "./orders.module.css";
 
 const STATUSES: { value: OrderStatus | "all"; label: string }[] = [
@@ -12,18 +13,26 @@ const STATUSES: { value: OrderStatus | "all"; label: string }[] = [
   { value: "delivered", label: "Delivered" },
   { value: "cancelled", label: "Cancelled" },
 ];
-
 const STATUS_COLOR: Record<string, string> = {
   new: "#DCFCE7", processing: "#FEF9C3",
   out_for_delivery: "#DBEAFE", delivered: "#D1FAE5", cancelled: "#FEE2E2",
 };
+const EXPORT_FIELDS = [
+  { key: "id", label: "Order ID" },
+  { key: "customer_name", label: "Customer" },
+  { key: "customer_phone", label: "Phone" },
+  { key: "customer_address", label: "Address" },
+  { key: "total", label: "Total (₱)" },
+  { key: "delivery_zone", label: "Zone" },
+  { key: "status", label: "Status" },
+  { key: "created_at", label: "Date" },
+];
 
 export default function OrdersClient({ initialOrders }: { initialOrders: Order[] }) {
   const [orders, setOrders] = useState<Order[]>(initialOrders);
   const [filter, setFilter] = useState<"all" | OrderStatus>("all");
   const [search, setSearch] = useState("");
   const [updating, setUpdating] = useState<string | null>(null);
-
   const supabase = createClient();
 
   async function updateStatus(id: string, status: OrderStatus) {
@@ -53,19 +62,15 @@ export default function OrdersClient({ initialOrders }: { initialOrders: Order[]
             </button>
           ))}
         </div>
+        <ExportButton data={filtered} filename="orders" fields={EXPORT_FIELDS} />
       </div>
 
       <div className={styles.tableWrap}>
         <table className={styles.table}>
           <thead>
             <tr>
-              <th>Customer</th>
-              <th>Items</th>
-              <th>Total</th>
-              <th>Zone</th>
-              <th>Status</th>
-              <th>Date</th>
-              <th>Update Status</th>
+              <th>Customer</th><th>Items</th><th>Total</th>
+              <th>Zone</th><th>Status</th><th>Date</th><th>Update Status</th>
             </tr>
           </thead>
           <tbody>
@@ -79,11 +84,7 @@ export default function OrdersClient({ initialOrders }: { initialOrders: Order[]
                   <a href={`tel:${o.customer_phone}`} className={styles.phone}>{o.customer_phone}</a><br />
                   <span className={styles.addr}>{o.customer_address}</span>
                 </td>
-                <td>
-                  {o.items.map((item, i) => (
-                    <div key={i}>{item.quantity}× {item.product_name}</div>
-                  ))}
-                </td>
+                <td>{o.items.map((item, i) => <div key={i}>{item.quantity}× {item.product_name}</div>)}</td>
                 <td className={styles.peso}>₱{o.total}</td>
                 <td><span className={styles.zone}>{o.delivery_zone.replace("_", " ")}</span></td>
                 <td>
@@ -91,14 +92,13 @@ export default function OrdersClient({ initialOrders }: { initialOrders: Order[]
                     {o.status.replace(/_/g, " ")}
                   </span>
                 </td>
-                <td className={styles.date}>{new Date(o.created_at).toLocaleDateString("en-PH")}<br /><small>{new Date(o.created_at).toLocaleTimeString("en-PH", { hour: "2-digit", minute: "2-digit" })}</small></td>
+                <td className={styles.date}>
+                  {new Date(o.created_at).toLocaleDateString("en-PH")}<br />
+                  <small>{new Date(o.created_at).toLocaleTimeString("en-PH", { hour: "2-digit", minute: "2-digit" })}</small>
+                </td>
                 <td>
-                  <select
-                    className={styles.statusSelect}
-                    value={o.status}
-                    disabled={updating === o.id}
-                    onChange={e => updateStatus(o.id, e.target.value as OrderStatus)}
-                  >
+                  <select className={styles.statusSelect} value={o.status} disabled={updating === o.id}
+                    onChange={e => updateStatus(o.id, e.target.value as OrderStatus)}>
                     <option value="new">New</option>
                     <option value="processing">Processing</option>
                     <option value="out_for_delivery">Out for Delivery</option>
@@ -111,7 +111,6 @@ export default function OrdersClient({ initialOrders }: { initialOrders: Order[]
           </tbody>
         </table>
       </div>
-
       <div className={styles.summary}>
         Showing {filtered.length} of {orders.length} orders
         {filter !== "all" && ` · filtered by "${filter.replace(/_/g, " ")}"`}

@@ -1,5 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import Cursor from "@/components/Cursor";
+import SmoothScroll from "@/components/SmoothScroll";
+import PageTransition from "@/components/PageTransition";
+import GSAPAnimations from "@/components/GSAPAnimations";
 
 export const metadata: Metadata = {
   title: "Jada's Greens — Hydroponically Grown Lettuce · Cabuyao, Laguna",
@@ -14,7 +18,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
       </head>
-      <body>{children}</body>
+      <body>
+        <SmoothScroll />
+        <GSAPAnimations />
+        <Cursor />
+        <PageTransition />
+        {children}
+      </body>
     </html>
   );
 }

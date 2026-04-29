@@ -7,10 +7,10 @@ export default function Nav() {
   return (
     <nav className={styles.nav}>
       <div className={`wrap ${styles.row}`}>
-        <div className={styles.brand}>
+        <Link href="#" className={styles.brand}>
           <Image src="/assets/logo-circle.png" alt="Jada's Greens" width={44} height={44} />
           <span>Jada&apos;s Greens</span>
-        </div>
+        </Link>
         <div className={styles.links}>
           <Link href="#about">Our Farm</Link>
           <Link href="#varieties">Lettuce</Link>

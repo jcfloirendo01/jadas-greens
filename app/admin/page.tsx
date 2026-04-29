@@ -1,30 +1,19 @@
 import { createClient } from "@/lib/supabase-server";
 import type { Order } from "@/lib/types";
+import RevenueChart from "@/components/admin/RevenueChart";
+import RevenueCard from "@/components/admin/RevenueCard";
 import styles from "./dashboard.module.css";
 import adminStyles from "./admin.module.css";
 
 const STATUS_COLORS: Record<string, string> = {
-  new: "#DCFCE7",
-  processing: "#FEF9C3",
-  out_for_delivery: "#DBEAFE",
-  delivered: "#D1FAE5",
-  cancelled: "#FEE2E2",
+  new: "#DCFCE7", processing: "#FEF9C3",
+  out_for_delivery: "#DBEAFE", delivered: "#D1FAE5", cancelled: "#FEE2E2",
 };
 const STATUS_TEXT: Record<string, string> = {
   new: "New", processing: "Processing",
   out_for_delivery: "Out for Delivery",
   delivered: "Delivered", cancelled: "Cancelled",
 };
-
-function StatCard({ label, value, sub, accent }: { label: string; value: string | number; sub?: string; accent?: boolean }) {
-  return (
-    <div className={`${styles.stat} ${accent ? styles.accent : ""}`}>
-      <div className={styles.statVal}>{value}</div>
-      <div className={styles.statLabel}>{label}</div>
-      {sub && <div className={styles.statSub}>{sub}</div>}
-    </div>
-  );
-}
 
 export default async function AdminDashboard() {
   const supabase = await createClient();
@@ -36,23 +25,8 @@ export default async function AdminDashboard() {
   ]);
 
   const allOrders = (orders ?? []) as Order[];
-  const today = new Date().toDateString();
-  const ordersToday = allOrders.filter(o => new Date(o.created_at).toDateString() === today);
   const pendingOrders = allOrders.filter(o => o.status === "new" || o.status === "processing");
   const revenueTotal = allOrders.filter(o => o.status !== "cancelled").reduce((s, o) => s + o.total, 0);
-  const revenueToday = ordersToday.filter(o => o.status !== "cancelled").reduce((s, o) => s + o.total, 0);
-
-  // Weekly revenue chart (last 7 days)
-  const weekDays = Array.from({ length: 7 }, (_, i) => {
-    const d = new Date(); d.setDate(d.getDate() - (6 - i));
-    return d;
-  });
-  const weekData = weekDays.map(d => ({
-    label: d.toLocaleDateString("en-PH", { weekday: "short" }),
-    revenue: allOrders.filter(o => new Date(o.created_at).toDateString() === d.toDateString() && o.status !== "cancelled").reduce((s, o) => s + o.total, 0),
-  }));
-  const maxRevenue = Math.max(...weekData.map(d => d.revenue), 1);
-
   const recent = allOrders.slice(0, 8);
 
   return (
@@ -60,33 +34,41 @@ export default async function AdminDashboard() {
       <h1 className={adminStyles.pageTitle}>Dashboard</h1>
       <p className={adminStyles.pageSub}>Overview of sales and orders for Jada&apos;s Greens.</p>
 
+      {/* Stat cards row */}
       <div className={styles.statsGrid}>
-        <StatCard label="Total Orders" value={allOrders.length} />
-        <StatCard label="Revenue Today" value={`₱${revenueToday}`} sub={`${ordersToday.length} order${ordersToday.length !== 1 ? "s" : ""}`} accent />
-        <StatCard label="Pending Orders" value={pendingOrders.length} sub="New + Processing" />
-        <StatCard label="Total Revenue" value={`₱${revenueTotal}`} />
-        <StatCard label="Customers" value={(customers ?? []).length} />
-        <StatCard label="Active Products" value={(products ?? []).filter((p: { available: boolean }) => p.available).length} />
+        <div className={styles.stat}>
+          <div className={styles.statVal}>{allOrders.length}</div>
+          <div className={styles.statLabel}>Total Orders</div>
+        </div>
+        <div className={styles.stat}>
+          <div className={styles.statVal}>{pendingOrders.length}</div>
+          <div className={styles.statLabel}>Pending</div>
+          <div className={styles.statSub}>New + Processing</div>
+        </div>
+        <div className={styles.stat}>
+          <div className={styles.statVal}>₱{revenueTotal.toLocaleString()}</div>
+          <div className={styles.statLabel}>Total Revenue</div>
+        </div>
+        <div className={styles.stat}>
+          <div className={styles.statVal}>{(customers ?? []).length}</div>
+          <div className={styles.statLabel}>Customers</div>
+        </div>
+        <div className={styles.stat}>
+          <div className={styles.statVal}>{(products ?? []).filter((p: { available: boolean }) => p.available).length}</div>
+          <div className={styles.statLabel}>Active Products</div>
+        </div>
       </div>
 
-      <div className={styles.twoCol}>
-        {/* Weekly chart */}
-        <div className={styles.card}>
-          <h3 className={styles.cardTitle}>Revenue — Last 7 Days</h3>
-          <div className={styles.chart}>
-            {weekData.map((d) => (
-              <div key={d.label} className={styles.bar}>
-                <div className={styles.barFill} style={{ height: `${(d.revenue / maxRevenue) * 100}%` }} title={`₱${d.revenue}`} />
-                <div className={styles.barVal}>₱{d.revenue}</div>
-                <div className={styles.barLbl}>{d.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
+      {/* Revenue chart + dynamic revenue card */}
+      <div className={styles.chartRow}>
+        <RevenueChart orders={allOrders} />
+        <RevenueCard orders={allOrders} />
+      </div>
 
-        {/* Recent orders */}
-        <div className={styles.card}>
-          <h3 className={styles.cardTitle}>Recent Orders</h3>
+      {/* Recent orders table */}
+      <div className={styles.card}>
+        <h3 className={styles.cardTitle}>Recent Orders</h3>
+        <div className={styles.tableWrap}>
           <table className={styles.table}>
             <thead>
               <tr>
@@ -98,7 +80,7 @@ export default async function AdminDashboard() {
             </thead>
             <tbody>
               {recent.length === 0 && (
-                <tr><td colSpan={4} style={{ textAlign:"center", color:"var(--ink-soft)", padding:24 }}>No orders yet.</td></tr>
+                <tr><td colSpan={4} style={{ textAlign: "center", color: "var(--ink-soft)", padding: "24px" }}>No orders yet.</td></tr>
               )}
               {recent.map(o => (
                 <tr key={o.id}>

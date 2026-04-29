@@ -6,21 +6,21 @@ export default function Hero() {
   return (
     <header className={styles.hero}>
       <div className="wrap">
-        <div className={styles.eyebrow}>
+        <div className={styles.eyebrow} data-hero-eyebrow>
           <span className="mono">EST. 2024 · Cabuyao, Laguna</span>
           <span className={styles.dash} />
           <span className="mono">Hydroponically Grown · Pesticide-Free</span>
         </div>
 
         <h1 className={styles.h1}>
-          Fresh<br />
-          <span className={styles.green}>Lettuce,</span><br />
-          Grown Right Here.
+          <div className={styles.lineWrap}><div className={styles.line} data-hero-line>Fresh</div></div>
+          <div className={styles.lineWrap}><div className={styles.line} data-hero-line><span className={styles.green}>Lettuce,</span></div></div>
+          <div className={styles.lineWrap}><div className={styles.line} data-hero-line>Grown Right Here.</div></div>
         </h1>
 
         <div className={styles.grid}>
           <div className={styles.left}>
-            <div className={styles.sub}>
+            <div className={styles.sub} data-hero-desc>
               <span className={styles.lead}>
                 Crisp, nutrient-rich hydroponic lettuce — grown sustainably without soil,
                 harvested fresh, and delivered straight to your door in Gran Seville.
@@ -28,14 +28,14 @@ export default function Hero() {
               A small family farm in Cabuyao, Laguna, growing clean, pesticide-free greens
               with a soft spot for our resident French bulldog mascot.
             </div>
-            <div className="cta-row">
+            <div className="cta-row" data-hero-cta>
               <Link className="pill leaf" href="#order">
                 <span style={{ width: 7, height: 7, borderRadius: "50%", background: "var(--cream)", display: "inline-block" }} />
                 Order Lettuce
               </Link>
               <Link className="pill" href="#about">About the Farm →</Link>
             </div>
-            <div className={styles.meta}>
+            <div className={styles.meta} data-hero-meta>
               <div>
                 <div className={`mono ${styles.metaKey}`}>Price</div>
                 <div className={styles.metaVal}>₱40 / piece</div>
@@ -51,7 +51,7 @@ export default function Hero() {
             </div>
           </div>
 
-          <div className={styles.card}>
+          <div className={styles.card} data-hero-card>
             <span className={styles.ghost}>100% HYDRO</span>
             <div className={styles.cardTop}>
               <span className="mono" style={{ color: "rgba(255,253,246,0.85)" }}>100% Hydroponic</span>
@@ -60,11 +60,11 @@ export default function Hero() {
               </div>
             </div>
             <div className={styles.priceCircles}>
-              <div className={styles.bubble}>
+              <div className={styles.bubble} data-hero-bubble>
                 <div className={styles.bubbleBig}>3 for ₱100</div>
                 <div className={styles.bubbleLbl}>ONLY!</div>
               </div>
-              <div className={`${styles.bubble} ${styles.bubbleSmall}`}>
+              <div className={`${styles.bubble} ${styles.bubbleSmall}`} data-hero-bubble>
                 <div className={styles.bubbleBig}>₱40</div>
                 <div className={styles.bubbleLbl}>PER PIECE</div>
               </div>

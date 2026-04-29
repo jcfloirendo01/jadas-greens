@@ -1,0 +1,110 @@
+.wrap { position: relative; }
+
+.trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1.5px solid var(--rule);
+  background: var(--cream);
+  color: var(--olive);
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: border-color .15s, background .15s;
+}
+.trigger:hover { border-color: var(--olive); background: var(--paper); }
+
+.panel {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  width: 300px;
+  background: var(--cream);
+  border: 1px solid var(--rule-soft);
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(42,47,26,0.14);
+  padding: 20px;
+  z-index: 200;
+}
+
+.panelTitle {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--ink-soft);
+  margin-bottom: 14px;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.field { display: flex; flex-direction: column; gap: 5px; }
+.fieldLabel {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ink-soft);
+}
+.dateInput {
+  border: 1.5px solid var(--rule);
+  border-radius: 7px;
+  padding: 7px 10px;
+  font-size: 12px;
+  font-family: inherit;
+  color: var(--ink);
+  background: var(--paper);
+  outline: none;
+  width: 100%;
+}
+.dateInput:focus { border-color: var(--leaf); }
+
+.hint {
+  font-size: 11px;
+  color: var(--ink-soft);
+  margin-bottom: 14px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.cancel {
+  padding: 7px 14px;
+  border-radius: 7px;
+  border: 1.5px solid var(--rule);
+  background: none;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink-soft);
+  cursor: pointer;
+  font-family: inherit;
+  transition: border-color .15s;
+}
+.cancel:hover { border-color: var(--ink-soft); }
+
+.download {
+  padding: 7px 16px;
+  border-radius: 7px;
+  border: none;
+  background: var(--olive);
+  color: var(--cream);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background .15s;
+}
+.download:hover { background: var(--olive-deep); }

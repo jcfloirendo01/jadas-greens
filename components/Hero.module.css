@@ -65,6 +65,10 @@
 .ico::after { content:''; position:absolute; left:4px; bottom:-4px; width:8px; height:8px; background:var(--cream); border:2px solid var(--olive); border-radius:50%; box-shadow:22px 0 0 -2px var(--cream),22px 0 0 0 var(--olive); }
 .freeLbl { background:var(--leaf); color:var(--cream); padding:4px 10px; border-radius:999px; font-weight:700; font-size:11px; letter-spacing:0.1em; display:inline-block; }
 
+/* Line-reveal wrappers for GSAP text animation */
+.lineWrap { overflow: hidden; display: block; }
+.line { display: block; }
+
 @media (max-width: 1000px) {
   .grid { grid-template-columns: 1fr; gap: 36px; }
   .priceCircles { right: 16px; }

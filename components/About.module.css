@@ -17,4 +17,8 @@
   content:''; position:absolute; inset:0;
   background-image: radial-gradient(circle at 20% 20%,rgba(95,164,50,0.08) 0%,transparent 35%), radial-gradient(circle at 80% 80%,rgba(63,74,31,0.06) 0%,transparent 40%);
 }
+/* Line-reveal wrappers for GSAP text animation */
+.lineWrap { overflow: hidden; }
+.line { display: block; }
+
 @media (max-width:1000px) { .grid { grid-template-columns:1fr; gap:36px; } }

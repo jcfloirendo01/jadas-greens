@@ -40,13 +40,13 @@ export default function Varieties() {
   return (
     <section id="varieties">
       <div className="wrap">
-        <div className="section-head">
+        <div className="section-head" data-variety-head>
           <span className="mono label" style={{ color: "var(--ink-soft)" }}>002 — The Lettuce</span>
           <h2 className="section-title">What We&apos;re<br /><span className="green">Growing.</span></h2>
         </div>
         <div className={styles.grid}>
           {varieties.map((v) => (
-            <article key={v.name} className={styles.card}>
+            <article key={v.name} className={styles.card} data-variety-card>
               <div className={`${styles.img} ${v.imgClass}`}>
                 <span className={`${styles.tag} ${v.tagClass}`}>{v.tag}</span>
                 <svg className={styles.svg} viewBox="0 0 200 180" xmlns="http://www.w3.org/2000/svg">

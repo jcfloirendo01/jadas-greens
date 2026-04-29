@@ -1,0 +1,60 @@
+.card {
+  background: var(--olive);
+  color: var(--cream);
+  border-radius: 12px;
+  padding: 24px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.tabs {
+  display: flex;
+  gap: 4px;
+  background: rgba(255,253,246,0.1);
+  border-radius: 8px;
+  padding: 3px;
+  width: fit-content;
+  margin-bottom: 12px;
+}
+.tab {
+  padding: 4px 12px;
+  border-radius: 6px;
+  border: none;
+  background: none;
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(255,253,246,0.55);
+  cursor: pointer;
+  transition: background .15s, color .15s;
+  font-family: inherit;
+}
+.tab:hover { color: var(--cream); }
+.active {
+  background: rgba(255,253,246,0.15);
+  color: var(--cream);
+}
+
+.value {
+  font-family: 'Sergio Trendy', 'Bricolage Grotesque', sans-serif;
+  font-weight: 800;
+  font-size: 40px;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--leaf-soft);
+}
+.label {
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255,253,246,0.75);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  margin-top: 4px;
+}
+.sub {
+  font-size: 12px;
+  color: rgba(255,253,246,0.45);
+  margin-top: 2px;
+}

@@ -16,6 +16,12 @@
 
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
+
+/* Hide default cursor on pointer devices so the custom cursor shows */
+@media (hover: hover) {
+  *, *::before, *::after { cursor: none !important; }
+}
+
 body {
   background: var(--paper);
   color: var(--ink);

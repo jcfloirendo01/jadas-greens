@@ -13,7 +13,7 @@ export default function Process() {
     <section id="how" style={{ paddingTop: 0 }}>
       <div className="wrap">
         <div className={styles.process}>
-          <div>
+          <div data-process-head>
             <span className="mono" style={{ color: "var(--ink-soft)" }}>004 — How we grow</span>
             <h2 className={`section-title ${styles.title}`}>
               Soil-free,<br /><span className="green">fuss-free.</span>
@@ -21,7 +21,7 @@ export default function Process() {
           </div>
           <div className={styles.steps}>
             {steps.map((s) => (
-              <div key={s.n} className={styles.step}>
+              <div key={s.n} className={styles.step} data-step>
                 <div className={styles.num}>{s.n}</div>
                 <h3 className={styles.stepTitle}>{s.title}</h3>
                 <p>{s.body}</p>
