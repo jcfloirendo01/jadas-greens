@@ -18,10 +18,9 @@ const STATUS_TEXT: Record<string, string> = {
 export default async function AdminDashboard() {
   const supabase = await createClient();
 
-  const [{ data: orders }, { data: customers }, { data: products }, { data: expenses }] = await Promise.all([
+  const [{ data: orders }, { data: customers }, { data: expenses }] = await Promise.all([
     supabase.from("orders").select("*").order("created_at", { ascending: false }),
     supabase.from("customers").select("id"),
-    supabase.from("products").select("*"),
     supabase.from("expenses").select("amount"),
   ]);
 
