@@ -1,12 +1,17 @@
 "use client";
 import { useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 import styles from "./Cursor.module.css";
 
 export default function Cursor() {
+  const pathname = usePathname();
   const dotRef = useRef<HTMLDivElement>(null);
   const ringRef = useRef<HTMLDivElement>(null);
+  const isAdmin = pathname?.startsWith("/admin");
 
   useEffect(() => {
+    if (isAdmin) return;
+
     const dot = dotRef.current;
     const ring = ringRef.current;
     if (!dot || !ring) return;
@@ -50,7 +55,9 @@ export default function Cursor() {
       cancelAnimationFrame(rafId);
       observer.disconnect();
     };
-  }, []);
+  }, [isAdmin]);
+
+  if (isAdmin) return null;
 
   return (
     <>

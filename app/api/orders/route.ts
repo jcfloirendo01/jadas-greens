@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase-server";
 
-const OWNER_PHONE = "09760920033";
+const OWNER_EMAIL = "jc.floirendo01@gmail.com";
 
-async function sendSmsAlert(order: {
+async function sendEmailAlert(order: {
   customer_name: string;
   customer_phone: string;
   items: { product_name: string; quantity: number }[];
@@ -11,24 +11,34 @@ async function sendSmsAlert(order: {
   delivery_zone: string;
   payment_method: string;
 }) {
-  const apiKey = process.env.SEMAPHORE_API_KEY;
+  const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) return;
 
-  const itemList = order.items.map((i) => `${i.quantity}x ${i.product_name}`).join(", ");
+  const itemList = order.items.map((i) => `<li>${i.quantity}× ${i.product_name}</li>`).join("");
   const zone = order.delivery_zone === "gran_seville" ? "Gran Seville" : order.delivery_zone;
   const pay = order.payment_method === "gcash" ? "GCash" : "Cash";
-  const message = `New Jada's Greens order!\n${order.customer_name} (${order.customer_phone})\n${itemList}\nTotal: P${order.total} [${pay}]\n${zone}`;
 
-  const res = await fetch("https://api.semaphore.co/api/v4/messages", {
+  const res = await fetch("https://api.resend.com/emails", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${apiKey}`,
+    },
     body: JSON.stringify({
-      apikey: apiKey,
-      number: OWNER_PHONE,
-      message,
+      from: "Jada's Greens <onboarding@resend.dev>",
+      to: OWNER_EMAIL,
+      subject: `New Order — ${order.customer_name}`,
+      html: `
+        <h2>New Order on Jada's Greens 🌱</h2>
+        <p><strong>Customer:</strong> ${order.customer_name} (${order.customer_phone})</p>
+        <p><strong>Items:</strong></p>
+        <ul>${itemList}</ul>
+        <p><strong>Total:</strong> ₱${order.total} [${pay}]</p>
+        <p><strong>Zone:</strong> ${zone}</p>
+      `,
     }),
   });
-  if (!res.ok) console.error("SMS send error:", res.status, await res.text());
+  if (!res.ok) console.error("Email send error:", res.status, await res.text());
 }
 
 export async function POST(req: NextRequest) {
@@ -70,8 +80,8 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Failed to save order" }, { status: 500 });
   }
 
-  // Fire SMS alert — non-blocking, failure won't break the order
-  sendSmsAlert({ customer_name, customer_phone, items, total, delivery_zone: delivery_zone ?? "gran_seville", payment_method: payment_method ?? "cash" });
+  // Fire email alert — non-blocking, failure won't break the order
+  sendEmailAlert({ customer_name, customer_phone, items, total, delivery_zone: delivery_zone ?? "gran_seville", payment_method: payment_method ?? "cash" });
 
   return NextResponse.json({ ok: true }, { status: 201 });
 }

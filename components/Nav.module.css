@@ -35,7 +35,20 @@
   .links { display: none; }
   .row { grid-template-columns: 1fr auto; padding: 12px 20px; }
 }
+.phone {
+  display: flex; align-items: center; gap: 6px;
+  color: var(--ink-soft); text-decoration: none;
+}
+.phone:hover { color: var(--leaf); }
 @media (max-width: 640px) {
   .row { padding: 10px 16px; }
   .brandText { display: none; }
+  .phoneNum { display: none; }
+  .phone {
+    width: 36px; height: 36px;
+    justify-content: center;
+    background: var(--leaf, #e8f5e9);
+    border-radius: 50%;
+    font-size: 17px;
+  }
 }

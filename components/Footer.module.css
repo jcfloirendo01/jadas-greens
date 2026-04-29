@@ -3,8 +3,15 @@
 .grid h5 { font-size:11px; text-transform:uppercase; letter-spacing:0.14em; color:rgba(255,253,246,0.5); margin:0 0 18px; font-weight:500; }
 .grid ul { list-style:none; padding:0; margin:0; display:grid; gap:10px; font-size:14px; }
 .grid a:hover { color:var(--cream); }
+.fbLink { display:inline-flex; align-items:center; gap:7px; }
 .brand { display:flex; align-items:center; gap:14px; margin-bottom:18px; }
 .name { font-family:'Sergio Trendy','Bricolage Grotesque',sans-serif; font-weight:800; font-size:26px; color:var(--cream); text-transform:uppercase; }
 .footer p { max-width:36ch; font-size:14px; margin:0; }
 .bottom { display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; padding-top:28px; border-top:1px solid rgba(255,253,246,0.15); color:rgba(255,253,246,0.5); }
 @media (max-width:1000px) { .grid { grid-template-columns:1fr 1fr; } }
+.visitPara { display:block; font-size:14px; margin:0; }
+@media (max-width:640px) {
+  .grid { grid-template-columns:1fr 1fr; }
+  .grid > div:first-child { grid-column: span 2; }
+  .colVisit { grid-column: span 2; }
+}

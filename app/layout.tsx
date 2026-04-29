@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Cursor from "@/components/Cursor";
 import SmoothScroll from "@/components/SmoothScroll";
-import PageTransition from "@/components/PageTransition";
+import PageTransitionWrapper from "@/components/PageTransitionWrapper";
 import GSAPAnimations from "@/components/GSAPAnimations";
 
 export const metadata: Metadata = {
@@ -26,7 +26,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <SmoothScroll />
         <GSAPAnimations />
         <Cursor />
-        <PageTransition />
+        <PageTransitionWrapper />
         {children}
       </body>
     </html>

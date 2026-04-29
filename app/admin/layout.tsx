@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase-server";
 import AdminShell from "@/components/admin/AdminShell";
+import AdminBodyClass from "@/components/admin/AdminBodyClass";
 import type { Order } from "@/lib/types";
 
 export const metadata = { title: "Admin — Jada's Greens CRM" };
@@ -18,6 +19,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
 
   return (
     <AdminShell email={user.email} initialNewOrders={(newOrders ?? []) as Order[]}>
+      <AdminBodyClass />
       {children}
     </AdminShell>
   );

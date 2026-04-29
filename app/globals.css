@@ -29,7 +29,7 @@ html, body { margin: 0; padding: 0; }
 
 /* Hide default cursor on pointer devices so the custom cursor shows */
 @media (hover: hover) {
-  *, *::before, *::after { cursor: none !important; }
+  body:not(.admin) *, body:not(.admin) *::before, body:not(.admin) *::after { cursor: none !important; }
 }
 
 body {

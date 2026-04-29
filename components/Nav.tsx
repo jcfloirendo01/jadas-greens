@@ -19,7 +19,10 @@ export default function Nav() {
           <Link href="#order">Order</Link>
         </div>
         <div className={styles.cta}>
-          <span className="mono" style={{ color: "var(--ink-soft)" }}>📞 0976 092 0033</span>
+          <a href="tel:09760920033" className={`mono ${styles.phone}`}>
+            <span>📞</span>
+            <span className={styles.phoneNum}>0976 092 0033</span>
+          </a>
           <Link className="pill leaf" href="#order">
             <span className="dot" style={{ background: "var(--cream)", width: 7, height: 7, borderRadius: "50%", display: "inline-block" }} />
             Order Now
