@@ -6,10 +6,11 @@ import { createClient } from "@/lib/supabase";
 import styles from "./Sidebar.module.css";
 
 const nav = [
-  { href: "/admin",           icon: "📊", label: "Dashboard" },
-  { href: "/admin/orders",    icon: "📦", label: "Orders" },
-  { href: "/admin/customers", icon: "👥", label: "Customers" },
-  { href: "/admin/products",  icon: "🌿", label: "Products" },
+  { href: "/admin",            icon: "📊", label: "Dashboard" },
+  { href: "/admin/orders",     icon: "📦", label: "Orders" },
+  { href: "/admin/customers",  icon: "👥", label: "Customers" },
+  { href: "/admin/products",   icon: "🌿", label: "Products" },
+  { href: "/admin/expenses",   icon: "🧾", label: "Expenses" },
 ];
 
 export default function Sidebar({ isOpen, onClose }: { isOpen?: boolean; onClose?: () => void }) {

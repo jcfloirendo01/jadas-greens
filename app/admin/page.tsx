@@ -18,15 +18,18 @@ const STATUS_TEXT: Record<string, string> = {
 export default async function AdminDashboard() {
   const supabase = await createClient();
 
-  const [{ data: orders }, { data: customers }, { data: products }] = await Promise.all([
+  const [{ data: orders }, { data: customers }, { data: products }, { data: expenses }] = await Promise.all([
     supabase.from("orders").select("*").order("created_at", { ascending: false }),
     supabase.from("customers").select("id"),
     supabase.from("products").select("*"),
+    supabase.from("expenses").select("amount"),
   ]);
 
   const allOrders = (orders ?? []) as Order[];
   const pendingOrders = allOrders.filter(o => o.status === "new" || o.status === "processing");
   const revenueTotal = allOrders.filter(o => o.status !== "cancelled").reduce((s, o) => s + o.total, 0);
+  const expenseTotal = (expenses ?? []).reduce((s: number, e: { amount: number }) => s + e.amount, 0);
+  const netProfit = revenueTotal - expenseTotal;
   const recent = allOrders.slice(0, 8);
 
   return (
@@ -47,15 +50,21 @@ export default async function AdminDashboard() {
         </div>
         <div className={styles.stat}>
           <div className={styles.statVal}>₱{revenueTotal.toLocaleString()}</div>
-          <div className={styles.statLabel}>Total Revenue</div>
+          <div className={styles.statLabel}>Gross Revenue</div>
+        </div>
+        <div className={styles.stat}>
+          <div className={styles.statVal} style={{ color: "#DC2626" }}>₱{expenseTotal.toLocaleString()}</div>
+          <div className={styles.statLabel}>Total Expenses</div>
+        </div>
+        <div className={styles.stat}>
+          <div className={styles.statVal} style={{ color: netProfit >= 0 ? "var(--leaf)" : "#DC2626" }}>
+            ₱{Math.abs(netProfit).toLocaleString()}
+          </div>
+          <div className={styles.statLabel}>{netProfit >= 0 ? "Net Profit" : "Net Loss"}</div>
         </div>
         <div className={styles.stat}>
           <div className={styles.statVal}>{(customers ?? []).length}</div>
           <div className={styles.statLabel}>Customers</div>
-        </div>
-        <div className={styles.stat}>
-          <div className={styles.statVal}>{(products ?? []).filter((p: { available: boolean }) => p.available).length}</div>
-          <div className={styles.statLabel}>Active Products</div>
         </div>
       </div>
 

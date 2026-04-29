@@ -37,7 +37,13 @@ export default function About() {
             </div>
           </div>
           <div className={styles.visual} data-about-visual>
-            <Image src="/assets/logo-badge.png" alt="Jada's Greens — Hydroponically Grown, Est. 2024" width={400} height={400} style={{ maxWidth: "80%", height: "auto" }} />
+            <Image
+              src="/assets/our-story.jpg"
+              alt="Inside the Jada's Greens hydroponic farm"
+              fill
+              sizes="(max-width: 1000px) 100vw, 50vw"
+              style={{ objectFit: "cover" }}
+            />
           </div>
         </div>
       </div>

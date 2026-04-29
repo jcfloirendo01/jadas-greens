@@ -1,5 +1,17 @@
 export type OrderStatus = 'new' | 'processing' | 'out_for_delivery' | 'delivered' | 'cancelled';
 export type DeliveryZone = 'gran_seville' | 'banlic' | 'other';
+export type PaymentMethod = 'cash' | 'gcash';
+export type ExpenseCategory = 'nutrients' | 'cups' | 'soil' | 'seeds' | 'tools' | 'packaging' | 'utilities' | 'other';
+
+export interface Expense {
+  id: string;
+  category: ExpenseCategory;
+  description: string;
+  amount: number;
+  expense_date: string;
+  notes: string | null;
+  created_at: string;
+}
 
 export interface OrderItem {
   product_id: string;
@@ -31,6 +43,7 @@ export interface Order {
   status: OrderStatus;
   delivery_zone: DeliveryZone;
   notes: string | null;
+  payment_method: PaymentMethod;
   created_at: string;
   updated_at: string;
 }

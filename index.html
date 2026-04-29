@@ -696,6 +696,48 @@
     color: rgba(255,253,246,0.5);
   }
 
+  /* Carousel */
+  .carousel {
+    position: absolute; inset: 0;
+    overflow: hidden;
+  }
+  .carousel-track {
+    display: flex; height: 100%;
+    transition: transform 0.5s cubic-bezier(.4,0,.2,1);
+    will-change: transform;
+  }
+  .carousel-slide {
+    min-width: 100%; height: 100%; flex-shrink: 0;
+  }
+  .carousel-slide img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+  }
+  .carousel-dots {
+    position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%);
+    display: flex; gap: 6px; z-index: 5;
+  }
+  .carousel-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: rgba(255,255,255,0.45);
+    cursor: pointer; border: none; padding: 0;
+    transition: background .2s, transform .2s;
+  }
+  .carousel-dot.active { background: var(--cream); transform: scale(1.35); }
+  .carousel-btn {
+    position: absolute; top: 50%; transform: translateY(-50%); z-index: 5;
+    background: rgba(0,0,0,0.22); border: none; border-radius: 50%;
+    width: 32px; height: 32px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; color: #fff; font-size: 20px; line-height: 1;
+    backdrop-filter: blur(2px);
+    transition: background .2s; opacity: 0;
+    transition: opacity .2s, background .2s;
+  }
+  .variety:hover .carousel-btn { opacity: 1; }
+  .carousel-btn:hover { background: rgba(0,0,0,0.42); }
+  .carousel-btn.prev { left: 10px; }
+  .carousel-btn.next { right: 10px; }
+
   /* Responsive */
   @media (max-width: 1000px) {
     .hero-grid, .about-grid, .delivery-grid, .cta-grid { grid-template-columns: 1fr; gap: 36px; }
@@ -903,23 +945,22 @@
       <article class="variety">
         <div class="variety-img">
           <span class="variety-tag">In Season ✓</span>
-          <svg class="leaf-svg" viewBox="0 0 200 180" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <radialGradient id="lett1" cx="50%" cy="40%" r="60%">
-                <stop offset="0%" stop-color="#B7E287"/>
-                <stop offset="60%" stop-color="#5FA432"/>
-                <stop offset="100%" stop-color="#3F6E1F"/>
-              </radialGradient>
-            </defs>
-            <g fill="url(#lett1)" stroke="#2D3415" stroke-width="1.5" stroke-linejoin="round">
-              <path d="M100 30 C 60 30, 30 60, 35 100 C 20 95, 10 110, 20 130 C 5 135, 10 160, 40 160 C 50 175, 90 175, 100 165 C 110 175, 150 175, 160 160 C 190 160, 195 135, 180 130 C 190 110, 180 95, 165 100 C 170 60, 140 30, 100 30 Z"/>
-            </g>
-            <g fill="none" stroke="#2D3415" stroke-width="1" opacity="0.5">
-              <path d="M70 60 Q 80 90, 75 130"/>
-              <path d="M100 50 Q 100 100, 100 160"/>
-              <path d="M130 60 Q 120 90, 125 130"/>
-            </g>
-          </svg>
+          <div class="carousel">
+            <div class="carousel-track">
+              <div class="carousel-slide"><img src="assets/olmetie/olmetie-01.jpg" alt="Olmetie lettuce"></div>
+              <div class="carousel-slide"><img src="assets/olmetie/olmetie-02.jpg" alt="Olmetie lettuce"></div>
+              <div class="carousel-slide"><img src="assets/olmetie/olmetie-03.jpg" alt="Olmetie lettuce"></div>
+              <div class="carousel-slide"><img src="assets/olmetie/olmetie-04.jpg" alt="Olmetie lettuce"></div>
+            </div>
+            <button class="carousel-btn prev" aria-label="Previous">&#8249;</button>
+            <button class="carousel-btn next" aria-label="Next">&#8250;</button>
+            <div class="carousel-dots">
+              <button class="carousel-dot active"></button>
+              <button class="carousel-dot"></button>
+              <button class="carousel-dot"></button>
+              <button class="carousel-dot"></button>
+            </div>
+          </div>
         </div>
         <div class="variety-body">
           <span class="mono" style="color:var(--ink-soft);">Curly · Crisp · Fresh</span>
@@ -936,23 +977,22 @@
       <article class="variety">
         <div class="variety-img upcoming-red">
           <span class="variety-tag coming">Coming Soon</span>
-          <svg class="leaf-svg" viewBox="0 0 200 180" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <radialGradient id="lett2" cx="50%" cy="40%" r="60%">
-                <stop offset="0%" stop-color="#E08A6F"/>
-                <stop offset="55%" stop-color="#A93D27"/>
-                <stop offset="100%" stop-color="#5C1F12"/>
-              </radialGradient>
-            </defs>
-            <g fill="url(#lett2)" stroke="#2D1009" stroke-width="1.5" stroke-linejoin="round">
-              <path d="M100 25 C 75 25, 60 50, 65 80 C 55 78, 50 95, 60 110 C 50 115, 55 140, 75 145 C 80 165, 95 170, 100 168 C 105 170, 120 165, 125 145 C 145 140, 150 115, 140 110 C 150 95, 145 78, 135 80 C 140 50, 125 25, 100 25 Z"/>
-            </g>
-            <g fill="none" stroke="#2D1009" stroke-width="1" opacity="0.5">
-              <path d="M85 50 Q 90 100, 88 160"/>
-              <path d="M100 40 Q 100 100, 100 168"/>
-              <path d="M115 50 Q 110 100, 112 160"/>
-            </g>
-          </svg>
+          <div class="carousel">
+            <div class="carousel-track">
+              <div class="carousel-slide"><img src="assets/thurinus/thurinus-01.jpg" alt="Thurinus red romaine"></div>
+              <div class="carousel-slide"><img src="assets/thurinus/thurinus-02.jpg" alt="Thurinus red romaine"></div>
+              <div class="carousel-slide"><img src="assets/thurinus/thurinus-03.jpg" alt="Thurinus red romaine"></div>
+              <div class="carousel-slide"><img src="assets/thurinus/thurinus-04.jpg" alt="Thurinus red romaine"></div>
+            </div>
+            <button class="carousel-btn prev" aria-label="Previous">&#8249;</button>
+            <button class="carousel-btn next" aria-label="Next">&#8250;</button>
+            <div class="carousel-dots">
+              <button class="carousel-dot active"></button>
+              <button class="carousel-dot"></button>
+              <button class="carousel-dot"></button>
+              <button class="carousel-dot"></button>
+            </div>
+          </div>
         </div>
         <div class="variety-body">
           <span class="mono" style="color:var(--ink-soft);">Upright · Sweet · Ruby</span>
@@ -969,23 +1009,22 @@
       <article class="variety">
         <div class="variety-img upcoming-green">
           <span class="variety-tag coming">Coming Soon</span>
-          <svg class="leaf-svg" viewBox="0 0 200 180" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <radialGradient id="lett3" cx="50%" cy="40%" r="60%">
-                <stop offset="0%" stop-color="#D4E89C"/>
-                <stop offset="55%" stop-color="#7BB13C"/>
-                <stop offset="100%" stop-color="#3F6E1F"/>
-              </radialGradient>
-            </defs>
-            <g fill="url(#lett3)" stroke="#2D3415" stroke-width="1.5" stroke-linejoin="round">
-              <path d="M100 25 C 75 25, 60 50, 65 80 C 55 78, 50 95, 60 110 C 50 115, 55 140, 75 145 C 80 165, 95 170, 100 168 C 105 170, 120 165, 125 145 C 145 140, 150 115, 140 110 C 150 95, 145 78, 135 80 C 140 50, 125 25, 100 25 Z"/>
-            </g>
-            <g fill="none" stroke="#2D3415" stroke-width="1" opacity="0.5">
-              <path d="M85 50 Q 90 100, 88 160"/>
-              <path d="M100 40 Q 100 100, 100 168"/>
-              <path d="M115 50 Q 110 100, 112 160"/>
-            </g>
-          </svg>
+          <div class="carousel">
+            <div class="carousel-track">
+              <div class="carousel-slide"><img src="assets/rincon/rincon-01.jpg" alt="Rincon green romaine"></div>
+              <div class="carousel-slide"><img src="assets/rincon/rincon-02.jpg" alt="Rincon green romaine"></div>
+              <div class="carousel-slide"><img src="assets/rincon/rincon-03.jpg" alt="Rincon green romaine"></div>
+              <div class="carousel-slide"><img src="assets/rincon/rincon-04.jpg" alt="Rincon green romaine"></div>
+            </div>
+            <button class="carousel-btn prev" aria-label="Previous">&#8249;</button>
+            <button class="carousel-btn next" aria-label="Next">&#8250;</button>
+            <div class="carousel-dots">
+              <button class="carousel-dot active"></button>
+              <button class="carousel-dot"></button>
+              <button class="carousel-dot"></button>
+              <button class="carousel-dot"></button>
+            </div>
+          </div>
         </div>
         <div class="variety-body">
           <span class="mono" style="color:var(--ink-soft);">Upright · Crisp · Bright</span>
@@ -1177,5 +1216,31 @@
   </div>
 </footer>
 
+<script>
+  document.querySelectorAll('.carousel').forEach(function(carousel) {
+    var track = carousel.querySelector('.carousel-track');
+    var slides = carousel.querySelectorAll('.carousel-slide');
+    var dots = carousel.querySelectorAll('.carousel-dot');
+    var current = 0;
+    var timer;
+
+    function go(n) {
+      current = (n + slides.length) % slides.length;
+      track.style.transform = 'translateX(-' + (current * 100) + '%)';
+      dots.forEach(function(d, i) { d.classList.toggle('active', i === current); });
+    }
+
+    function reset() {
+      clearInterval(timer);
+      timer = setInterval(function() { go(current + 1); }, 3800);
+    }
+
+    carousel.querySelector('.carousel-btn.prev').addEventListener('click', function() { go(current - 1); reset(); });
+    carousel.querySelector('.carousel-btn.next').addEventListener('click', function() { go(current + 1); reset(); });
+    dots.forEach(function(d, i) { d.addEventListener('click', function() { go(i); reset(); }); });
+
+    reset();
+  });
+</script>
 </body>
 </html>

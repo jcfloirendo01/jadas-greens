@@ -6,7 +6,8 @@ import styles from "./NotificationBell.module.css";
 
 export default function NotificationBell({ initialNewOrders }: { initialNewOrders: Order[] }) {
   const [orders, setOrders] = useState<Order[]>(initialNewOrders);
-  const [unread, setUnread] = useState(0);
+  const [unread, setUnread] = useState(initialNewOrders.length);
+  const [ringing, setRinging] = useState(initialNewOrders.length > 0);
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const supabase = createClient();
@@ -19,6 +20,7 @@ export default function NotificationBell({ initialNewOrders }: { initialNewOrder
       .on("postgres_changes", { event: "INSERT", schema: "public", table: "orders" }, (payload) => {
         setOrders((prev) => [payload.new as Order, ...prev]);
         setUnread((n) => n + 1);
+        setRinging(true);
       })
       .subscribe();
     return () => { supabase.removeChannel(channel); };
@@ -36,11 +38,12 @@ export default function NotificationBell({ initialNewOrders }: { initialNewOrder
   const handleOpen = () => {
     setOpen((v) => !v);
     setUnread(0);
+    setRinging(false);
   };
 
   return (
     <div className={styles.wrap} ref={ref}>
-      <button className={styles.bell} onClick={handleOpen} aria-label="Notifications">
+      <button className={`${styles.bell} ${ringing ? styles.ringing : ""}`} onClick={handleOpen} aria-label="Notifications">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
           <path d="M13.73 21a2 2 0 0 1-3.46 0"/>

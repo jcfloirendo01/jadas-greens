@@ -10,12 +10,8 @@
 .tag { display:inline-flex; align-items:center; gap:10px; background:var(--paper-2); color:var(--olive); padding:8px 16px; border-radius:999px; margin-bottom:24px; }
 .dot { width:8px; height:8px; border-radius:50%; background:var(--leaf); display:inline-block; }
 .visual {
-  aspect-ratio:1/1; background:var(--cream); border:1px solid var(--rule); border-radius:12px;
-  display:flex; align-items:center; justify-content:center; padding:48px; position:relative; overflow:hidden;
-}
-.visual::before {
-  content:''; position:absolute; inset:0;
-  background-image: radial-gradient(circle at 20% 20%,rgba(95,164,50,0.08) 0%,transparent 35%), radial-gradient(circle at 80% 80%,rgba(63,74,31,0.06) 0%,transparent 40%);
+  aspect-ratio:1/1; border:1px solid var(--rule); border-radius:12px;
+  position:relative; overflow:hidden;
 }
 /* Line-reveal wrappers for GSAP text animation */
 .lineWrap { overflow: hidden; }

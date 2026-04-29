@@ -19,6 +19,12 @@
 .saving { color:var(--leaf); font-weight:600; }
 .err { background:#FEF2F2; color:#991B1B; padding:12px 16px; border-radius:8px; font-size:14px; margin-bottom:16px; }
 .footer { display:flex; align-items:center; gap:16px; margin-top:8px; flex-wrap:wrap; }
+.payToggle { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.payBtn { display:flex; align-items:center; justify-content:center; gap:8px; padding:13px 12px; border:1.5px solid var(--rule); border-radius:10px; background:var(--paper); font-size:14px; font-family:inherit; font-weight:500; color:var(--ink-soft); cursor:pointer; transition:all .15s; }
+.payBtn:hover { border-color:var(--leaf); color:var(--ink); }
+.payActive { border-color:var(--leaf) !important; background:rgba(95,164,50,0.08) !important; color:var(--olive) !important; font-weight:600; }
+.payIcon { font-size:16px; }
+
 .success { text-align:center; padding:20px 0; }
 .successIcon { font-size:56px; margin-bottom:16px; }
 .success h3 { font-family:'Sergio Trendy','Bricolage Grotesque',sans-serif; font-weight:800; font-size:28px; margin:0 0 12px; text-transform:uppercase; color:var(--olive); }

@@ -41,9 +41,27 @@ create table if not exists orders (
   delivery_zone text not null default 'gran_seville'
     check (delivery_zone in ('gran_seville','banlic','other')),
   notes text,
+  payment_method text not null default 'cash'
+    check (payment_method in ('cash','gcash')),
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
+
+-- Expenses
+create table if not exists expenses (
+  id uuid primary key default gen_random_uuid(),
+  category text not null default 'other'
+    check (category in ('nutrients','cups','soil','seeds','tools','packaging','utilities','other')),
+  description text not null,
+  amount integer not null,
+  expense_date date not null default current_date,
+  notes text,
+  created_at timestamptz not null default now()
+);
+
+alter table expenses enable row level security;
+create policy "admin full access expenses" on expenses
+  for all using (auth.role() = 'authenticated');
 
 -- Auto-update updated_at on orders
 create or replace function update_updated_at()

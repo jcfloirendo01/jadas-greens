@@ -1,9 +1,39 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase-server";
 
+const OWNER_PHONE = "09760920033";
+
+async function sendSmsAlert(order: {
+  customer_name: string;
+  customer_phone: string;
+  items: { name: string; qty: number }[];
+  total: number;
+  delivery_zone: string;
+  payment_method: string;
+}) {
+  const apiKey = process.env.SEMAPHORE_API_KEY;
+  if (!apiKey) return;
+
+  const itemList = order.items.map((i) => `${i.qty}x ${i.name}`).join(", ");
+  const zone = order.delivery_zone === "gran_seville" ? "Gran Seville" : order.delivery_zone;
+  const pay = order.payment_method === "gcash" ? "GCash" : "Cash";
+  const message = `New Jada's Greens order!\n${order.customer_name} (${order.customer_phone})\n${itemList}\nTotal: P${order.total} [${pay}]\n${zone}`;
+
+  await fetch("https://api.semaphore.co/api/v4/messages", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      apikey: apiKey,
+      number: OWNER_PHONE,
+      message,
+      sendername: "JADASGREENS",
+    }),
+  }).catch((err) => console.error("SMS send error:", err));
+}
+
 export async function POST(req: NextRequest) {
   const body = await req.json();
-  const { customer_name, customer_phone, customer_address, delivery_zone, notes, items, total } = body;
+  const { customer_name, customer_phone, customer_address, delivery_zone, notes, items, total, payment_method } = body;
 
   if (!customer_name || !customer_phone || !customer_address || !items?.length) {
     return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
@@ -31,6 +61,7 @@ export async function POST(req: NextRequest) {
   const { error } = await supabase.from("orders").insert({
     customer_id, customer_name, customer_phone, customer_address,
     delivery_zone: delivery_zone ?? "gran_seville",
+    payment_method: payment_method ?? "cash",
     notes: notes ?? null, items, total, status: "new",
   });
 
@@ -38,6 +69,9 @@ export async function POST(req: NextRequest) {
     console.error("Order insert error:", error);
     return NextResponse.json({ error: "Failed to save order" }, { status: 500 });
   }
+
+  // Fire SMS alert — non-blocking, failure won't break the order
+  sendSmsAlert({ customer_name, customer_phone, items, total, delivery_zone: delivery_zone ?? "gran_seville", payment_method: payment_method ?? "cash" });
 
   return NextResponse.json({ ok: true }, { status: 201 });
 }

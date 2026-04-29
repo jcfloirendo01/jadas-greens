@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import styles from "./Hero.module.css";
 
@@ -55,16 +54,13 @@ export default function Hero() {
             <span className={styles.ghost}>100% HYDRO</span>
             <div className={styles.cardTop}>
               <span className="mono" style={{ color: "rgba(255,253,246,0.85)" }}>100% Hydroponic</span>
-              <div className={styles.badge}>
-                <Image src="/assets/logo-circle.png" alt="" width={64} height={64} />
-              </div>
             </div>
             <div className={styles.priceCircles}>
               <div className={styles.bubble} data-hero-bubble>
                 <div className={styles.bubbleBig}>3 for ₱100</div>
                 <div className={styles.bubbleLbl}>ONLY!</div>
               </div>
-              <div className={`${styles.bubble} ${styles.bubbleSmall}`} data-hero-bubble>
+              <div className={styles.bubble} data-hero-bubble>
                 <div className={styles.bubbleBig}>₱40</div>
                 <div className={styles.bubbleLbl}>PER PIECE</div>
               </div>
@@ -76,11 +72,6 @@ export default function Hero() {
                   Crisp, nutrient-rich hydroponic lettuce grown sustainably without soil —
                   offering freshness, vibrant flavor, and eco-friendly appeal.
                 </p>
-              </div>
-              <div className={styles.freeDeliv}>
-                <div className={styles.ico} />
-                <div className={styles.freeLbl}>FREE DELIVERY</div>
-                <small>within Gran Seville Subdivision</small>
               </div>
             </div>
           </div>

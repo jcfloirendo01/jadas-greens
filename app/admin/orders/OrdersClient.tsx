@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { createClient } from "@/lib/supabase";
-import type { Order, OrderItem, OrderStatus, DeliveryZone } from "@/lib/types";
+import type { Order, OrderItem, OrderStatus, DeliveryZone, PaymentMethod } from "@/lib/types";
 import ExportButton from "@/components/admin/ExportButton";
 import styles from "./orders.module.css";
 
@@ -23,6 +23,7 @@ const EXPORT_FIELDS = [
   { key: "customer_phone", label: "Phone" },
   { key: "customer_address", label: "Address" },
   { key: "total", label: "Total (₱)" },
+  { key: "payment_method", label: "Payment" },
   { key: "delivery_zone", label: "Zone" },
   { key: "status", label: "Status" },
   { key: "created_at", label: "Date" },
@@ -33,12 +34,21 @@ interface ItemRow { product_name: string; quantity: number; unit_price: number; 
 
 const emptyForm = () => ({
   customer_name: "", customer_phone: "", customer_address: "",
-  delivery_zone: "other" as DeliveryZone, status: "new" as OrderStatus, notes: "",
-  items: [{ product_name: "", quantity: 1, unit_price: 0 }] as ItemRow[],
+  delivery_zone: "other" as DeliveryZone, status: "new" as OrderStatus,
+  payment_method: "cash" as PaymentMethod, notes: "",
+  items: [{ product_name: "", quantity: 1, unit_price: 40 }] as ItemRow[],
 });
 
+function calcItemSubtotal(qty: number, unitPrice: number): number {
+  // Apply 3-for-₱100 bundle deal for the standard ₱40 lettuce price
+  if (unitPrice === 40) {
+    return Math.floor(qty / 3) * 100 + (qty % 3) * 40;
+  }
+  return qty * unitPrice;
+}
+
 function calcTotal(items: ItemRow[]) {
-  return items.reduce((s, it) => s + it.quantity * it.unit_price, 0);
+  return items.reduce((s, it) => s + calcItemSubtotal(it.quantity, it.unit_price), 0);
 }
 
 export default function OrdersClient({ initialOrders }: { initialOrders: Order[] }) {
@@ -76,6 +86,7 @@ export default function OrdersClient({ initialOrders }: { initialOrders: Order[]
       customer_address: o.customer_address,
       delivery_zone: o.delivery_zone,
       status: o.status,
+      payment_method: o.payment_method ?? "cash",
       notes: o.notes ?? "",
       items: o.items.map(it => ({ product_name: it.product_name, quantity: it.quantity, unit_price: it.unit_price })),
     });
@@ -99,7 +110,7 @@ export default function OrdersClient({ initialOrders }: { initialOrders: Order[]
   }
 
   function addItem() {
-    setForm(f => ({ ...f, items: [...f.items, { product_name: "", quantity: 1, unit_price: 0 }] }));
+    setForm(f => ({ ...f, items: [...f.items, { product_name: "", quantity: 1, unit_price: 40 }] }));
   }
 
   function removeItem(i: number) {
@@ -114,7 +125,7 @@ export default function OrdersClient({ initialOrders }: { initialOrders: Order[]
     const items: OrderItem[] = form.items.map(it => ({
       product_id: "", product_name: it.product_name,
       quantity: it.quantity, unit_price: it.unit_price,
-      subtotal: it.quantity * it.unit_price,
+      subtotal: calcItemSubtotal(it.quantity, it.unit_price),
     }));
     const { data, error } = await supabase.from("orders").insert({
       customer_name: form.customer_name,
@@ -122,6 +133,7 @@ export default function OrdersClient({ initialOrders }: { initialOrders: Order[]
       customer_address: form.customer_address,
       delivery_zone: form.delivery_zone,
       status: form.status,
+      payment_method: form.payment_method,
       notes: form.notes || null,
       items, total,
     }).select().single();
@@ -140,7 +152,7 @@ export default function OrdersClient({ initialOrders }: { initialOrders: Order[]
     const items: OrderItem[] = form.items.map(it => ({
       product_id: "", product_name: it.product_name,
       quantity: it.quantity, unit_price: it.unit_price,
-      subtotal: it.quantity * it.unit_price,
+      subtotal: calcItemSubtotal(it.quantity, it.unit_price),
     }));
     const { error } = await supabase.from("orders").update({
       customer_name: form.customer_name,
@@ -148,6 +160,7 @@ export default function OrdersClient({ initialOrders }: { initialOrders: Order[]
       customer_address: form.customer_address,
       delivery_zone: form.delivery_zone,
       status: form.status,
+      payment_method: form.payment_method,
       notes: form.notes || null,
       items, total,
     }).eq("id", selected.id);
@@ -197,12 +210,12 @@ export default function OrdersClient({ initialOrders }: { initialOrders: Order[]
           <thead>
             <tr>
               <th>Customer</th><th>Items</th><th>Total</th>
-              <th>Zone</th><th>Status</th><th>Date</th><th>Update</th><th>Actions</th>
+              <th>Payment</th><th>Zone</th><th>Status</th><th>Date</th><th>Update</th><th>Actions</th>
             </tr>
           </thead>
           <tbody>
             {filtered.length === 0 && (
-              <tr><td colSpan={8} className={styles.empty}>No orders found.</td></tr>
+              <tr><td colSpan={9} className={styles.empty}>No orders found.</td></tr>
             )}
             {filtered.map(o => (
               <tr key={o.id}>
@@ -214,6 +227,11 @@ export default function OrdersClient({ initialOrders }: { initialOrders: Order[]
                 </td>
                 <td>{o.items.map((item, i) => <div key={i}>{item.quantity}× {item.product_name}</div>)}</td>
                 <td className={styles.peso}>₱{o.total}</td>
+                <td>
+                  <span className={styles.payBadge} data-method={o.payment_method ?? "cash"}>
+                    {o.payment_method === "gcash" ? "GCash" : "Cash"}
+                  </span>
+                </td>
                 <td><span className={styles.zone}>{o.delivery_zone.replace("_", " ")}</span></td>
                 <td>
                   <span className={styles.badge} style={{ background: STATUS_COLOR[o.status] }}>
@@ -279,11 +297,20 @@ export default function OrdersClient({ initialOrders }: { initialOrders: Order[]
                 <label className={styles.label}>Address</label>
                 <input className={styles.input} value={form.customer_address} onChange={e => setForm(f => ({ ...f, customer_address: e.target.value }))} />
               </div>
-              <div className={styles.fieldGroup}>
-                <label className={styles.label}>Status</label>
-                <select className={styles.input} value={form.status} onChange={e => setForm(f => ({ ...f, status: e.target.value as OrderStatus }))}>
-                  {STATUSES.filter(s => s.value !== "all").map(s => <option key={s.value} value={s.value}>{s.label}</option>)}
-                </select>
+              <div className={styles.row2}>
+                <div className={styles.fieldGroup}>
+                  <label className={styles.label}>Status</label>
+                  <select className={styles.input} value={form.status} onChange={e => setForm(f => ({ ...f, status: e.target.value as OrderStatus }))}>
+                    {STATUSES.filter(s => s.value !== "all").map(s => <option key={s.value} value={s.value}>{s.label}</option>)}
+                  </select>
+                </div>
+                <div className={styles.fieldGroup}>
+                  <label className={styles.label}>Payment</label>
+                  <select className={styles.input} value={form.payment_method} onChange={e => setForm(f => ({ ...f, payment_method: e.target.value as PaymentMethod }))}>
+                    <option value="cash">Cash on Delivery</option>
+                    <option value="gcash">GCash</option>
+                  </select>
+                </div>
               </div>
 
               <div className={styles.fieldGroup}>
@@ -302,7 +329,12 @@ export default function OrdersClient({ initialOrders }: { initialOrders: Order[]
                   </div>
                 ))}
                 <button className={styles.addItemBtn} onClick={addItem}>+ Add item</button>
-                <div className={styles.totalPreview}>Total: ₱{calcTotal(form.items).toFixed(2)}</div>
+                <div className={styles.totalPreview}>
+                  Total: ₱{calcTotal(form.items)}
+                  {form.items.some(it => it.unit_price === 40 && it.quantity >= 3) && (
+                    <span className={styles.bundleNote}> · Bundle deal applied</span>
+                  )}
+                </div>
               </div>
 
               <div className={styles.fieldGroup}>

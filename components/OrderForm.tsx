@@ -5,10 +5,12 @@ import styles from "./OrderForm.module.css";
 interface Props { onClose: () => void; }
 
 type Zone = "gran_seville" | "banlic" | "other";
+type Payment = "cash" | "gcash";
 
 export default function OrderForm({ onClose }: Props) {
   const [qty, setQty] = useState(1);
   const [zone, setZone] = useState<Zone>("gran_seville");
+  const [payment, setPayment] = useState<Payment>("cash");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
@@ -27,6 +29,7 @@ export default function OrderForm({ onClose }: Props) {
         body: JSON.stringify({
           customer_name: name, customer_phone: phone,
           customer_address: address, delivery_zone: zone,
+          payment_method: payment,
           notes, items: [{ product_id: "olmetie", product_name: "Olmetie", quantity: qty, unit_price: 40, subtotal: total }],
           total,
         }),
@@ -74,6 +77,22 @@ export default function OrderForm({ onClose }: Props) {
                 <option value="banlic">Banlic, Cabuyao (pickup or small fee)</option>
                 <option value="other">Other — we&apos;ll arrange</option>
               </select>
+            </div>
+
+            <div className={styles.field}>
+              <label className="mono">Payment Method *</label>
+              <div className={styles.payToggle}>
+                <button type="button"
+                  className={`${styles.payBtn} ${payment === "cash" ? styles.payActive : ""}`}
+                  onClick={() => setPayment("cash")}>
+                  <span className={styles.payIcon}>💵</span> Cash on Delivery
+                </button>
+                <button type="button"
+                  className={`${styles.payBtn} ${payment === "gcash" ? styles.payActive : ""}`}
+                  onClick={() => setPayment("gcash")}>
+                  <span className={styles.payIcon}>📱</span> GCash
+                </button>
+              </div>
             </div>
 
             <div className={styles.qty}>

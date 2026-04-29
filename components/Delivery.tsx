@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import styles from "./Delivery.module.css";
 
@@ -44,13 +45,32 @@ export default function Delivery() {
             </div>
           </div>
 
+          {/* Map card */}
           <div className={styles.map}>
-            <div className={styles.mapGrid} />
-            <div className="mono" style={{ position:"relative", zIndex:2, color:"rgba(255,253,246,0.7)" }}>Gran Seville · Banlic, Cabuyao</div>
-            <div className={styles.zone} />
-            <div className={styles.pin} />
-            <span className={`${styles.label} ${styles.labelFarm}`}>🌱 Jada&apos;s Greens Farm</span>
-            <span className={`${styles.label} ${styles.labelAddr}`}>📍 Block 10B Lot 7 Almeria St., Gran Seville</span>
+            {/* Actual Gran Seville polygon map */}
+            <Image
+              src="/assets/gran-seville-map.png"
+              alt="Gran Seville Subdivision map"
+              fill
+              sizes="(max-width: 1000px) 100vw, 50vw"
+              style={{ objectFit: "contain", objectPosition: "center", padding: "1.5rem" }}
+            />
+
+            {/* Subdivision label — upper right */}
+            <div className={styles.mapTitle}>
+              <span className="mono">Gran Seville Subdivision</span>
+            </div>
+
+            {/* Glowing pin — Block 10B Lot 7 (67.5% left, 8.4% top of image) */}
+            <div className={styles.pin}>
+              <div className={styles.pinRing} />
+              <div className={styles.pinRingDelay} />
+              <div className={styles.pinCore} />
+              <div className={styles.pinLabel}>
+                <span className={styles.pinName}>Block 10B Lot 7</span>
+                <span className={styles.pinAddr}>Almeria St., Gran Seville</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
