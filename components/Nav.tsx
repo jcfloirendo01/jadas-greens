@@ -9,7 +9,7 @@ export default function Nav() {
       <div className={`wrap ${styles.row}`}>
         <Link href="#" className={styles.brand}>
           <Image src="/assets/logo-circle.png" alt="Jada's Greens" width={44} height={44} />
-          <span>Jada&apos;s Greens</span>
+          <span className={styles.brandText}>Jada&apos;s Greens</span>
         </Link>
         <div className={styles.links}>
           <Link href="#about">Our Farm</Link>

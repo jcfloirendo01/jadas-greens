@@ -7,8 +7,10 @@
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  padding: 14px 0;
+  padding: 14px 40px;
   gap: 24px;
+  max-width: 1340px;
+  margin: 0 auto;
 }
 .brand {
   display: flex; align-items: center; gap: 12px;
@@ -31,5 +33,9 @@
 }
 @media (max-width: 1000px) {
   .links { display: none; }
-  .row { grid-template-columns: 1fr auto; }
+  .row { grid-template-columns: 1fr auto; padding: 12px 20px; }
+}
+@media (max-width: 640px) {
+  .row { padding: 10px 16px; }
+  .brandText { display: none; }
 }

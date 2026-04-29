@@ -8,6 +8,10 @@ import GSAPAnimations from "@/components/GSAPAnimations";
 export const metadata: Metadata = {
   title: "Jada's Greens — Hydroponically Grown Lettuce · Cabuyao, Laguna",
   description: "Fresh, pesticide-free hydroponic lettuce grown in Cabuyao, Laguna. Free delivery within Gran Seville Subdivision. ₱40/pc or 3 for ₱100.",
+  icons: {
+    icon: "/assets/logo-circle.png",
+    apple: "/assets/logo-circle.png",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

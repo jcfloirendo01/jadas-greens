@@ -1,3 +1,13 @@
+@font-face {
+  font-family: 'Sergio Trendy';
+  src: url('/fonts/sergio-trendy.woff2') format('woff2'),
+       url('/fonts/sergio-trendy.woff') format('woff'),
+       url('/fonts/sergio-trendy.ttf') format('truetype');
+  font-weight: 400 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --paper:      #FAF7EE;
   --paper-2:    #F2EDDD;

@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { createClient } from "@/lib/supabase";
-import type { Order, OrderStatus } from "@/lib/types";
+import type { Order, OrderItem, OrderStatus, DeliveryZone } from "@/lib/types";
 import ExportButton from "@/components/admin/ExportButton";
 import styles from "./orders.module.css";
 
@@ -27,6 +27,19 @@ const EXPORT_FIELDS = [
   { key: "status", label: "Status" },
   { key: "created_at", label: "Date" },
 ];
+const ZONES: DeliveryZone[] = ["gran_seville", "banlic", "other"];
+
+interface ItemRow { product_name: string; quantity: number; unit_price: number; }
+
+const emptyForm = () => ({
+  customer_name: "", customer_phone: "", customer_address: "",
+  delivery_zone: "other" as DeliveryZone, status: "new" as OrderStatus, notes: "",
+  items: [{ product_name: "", quantity: 1, unit_price: 0 }] as ItemRow[],
+});
+
+function calcTotal(items: ItemRow[]) {
+  return items.reduce((s, it) => s + it.quantity * it.unit_price, 0);
+}
 
 export default function OrdersClient({ initialOrders }: { initialOrders: Order[] }) {
   const [orders, setOrders] = useState<Order[]>(initialOrders);
@@ -35,11 +48,124 @@ export default function OrdersClient({ initialOrders }: { initialOrders: Order[]
   const [updating, setUpdating] = useState<string | null>(null);
   const supabase = createClient();
 
+  // Modal state
+  const [modal, setModal] = useState<"add" | "edit" | "delete" | null>(null);
+  const [selected, setSelected] = useState<Order | null>(null);
+  const [form, setForm] = useState(emptyForm());
+  const [saving, setSaving] = useState(false);
+  const [err, setErr] = useState<string | null>(null);
+
   async function updateStatus(id: string, status: OrderStatus) {
     setUpdating(id);
     const { error } = await supabase.from("orders").update({ status }).eq("id", id);
     if (!error) setOrders(prev => prev.map(o => o.id === id ? { ...o, status } : o));
     setUpdating(null);
+  }
+
+  function openAdd() {
+    setForm(emptyForm());
+    setErr(null);
+    setModal("add");
+  }
+
+  function openEdit(o: Order) {
+    setSelected(o);
+    setForm({
+      customer_name: o.customer_name,
+      customer_phone: o.customer_phone,
+      customer_address: o.customer_address,
+      delivery_zone: o.delivery_zone,
+      status: o.status,
+      notes: o.notes ?? "",
+      items: o.items.map(it => ({ product_name: it.product_name, quantity: it.quantity, unit_price: it.unit_price })),
+    });
+    setErr(null);
+    setModal("edit");
+  }
+
+  function openDelete(o: Order) {
+    setSelected(o);
+    setErr(null);
+    setModal("delete");
+  }
+
+  function closeModal() { setModal(null); setSelected(null); setErr(null); }
+
+  function setItem(i: number, field: keyof ItemRow, value: string | number) {
+    setForm(f => {
+      const items = f.items.map((it, idx) => idx === i ? { ...it, [field]: value } : it);
+      return { ...f, items };
+    });
+  }
+
+  function addItem() {
+    setForm(f => ({ ...f, items: [...f.items, { product_name: "", quantity: 1, unit_price: 0 }] }));
+  }
+
+  function removeItem(i: number) {
+    setForm(f => ({ ...f, items: f.items.filter((_, idx) => idx !== i) }));
+  }
+
+  async function handleAdd() {
+    if (!form.customer_name.trim()) { setErr("Customer name is required."); return; }
+    if (form.items.some(it => !it.product_name.trim())) { setErr("All items need a product name."); return; }
+    setSaving(true); setErr(null);
+    const total = calcTotal(form.items);
+    const items: OrderItem[] = form.items.map(it => ({
+      product_id: "", product_name: it.product_name,
+      quantity: it.quantity, unit_price: it.unit_price,
+      subtotal: it.quantity * it.unit_price,
+    }));
+    const { data, error } = await supabase.from("orders").insert({
+      customer_name: form.customer_name,
+      customer_phone: form.customer_phone,
+      customer_address: form.customer_address,
+      delivery_zone: form.delivery_zone,
+      status: form.status,
+      notes: form.notes || null,
+      items, total,
+    }).select().single();
+    if (error) { setErr(error.message); setSaving(false); return; }
+    setOrders(prev => [data as Order, ...prev]);
+    setSaving(false);
+    closeModal();
+  }
+
+  async function handleEdit() {
+    if (!selected) return;
+    if (!form.customer_name.trim()) { setErr("Customer name is required."); return; }
+    if (form.items.some(it => !it.product_name.trim())) { setErr("All items need a product name."); return; }
+    setSaving(true); setErr(null);
+    const total = calcTotal(form.items);
+    const items: OrderItem[] = form.items.map(it => ({
+      product_id: "", product_name: it.product_name,
+      quantity: it.quantity, unit_price: it.unit_price,
+      subtotal: it.quantity * it.unit_price,
+    }));
+    const { error } = await supabase.from("orders").update({
+      customer_name: form.customer_name,
+      customer_phone: form.customer_phone,
+      customer_address: form.customer_address,
+      delivery_zone: form.delivery_zone,
+      status: form.status,
+      notes: form.notes || null,
+      items, total,
+    }).eq("id", selected.id);
+    if (error) { setErr(error.message); setSaving(false); return; }
+    setOrders(prev => prev.map(o => o.id === selected.id
+      ? { ...o, ...form, items, total, notes: form.notes || null } : o));
+    setSaving(false);
+    closeModal();
+  }
+
+  async function handleDelete() {
+    if (!selected) return;
+    setSaving(true); setErr(null);
+    const { error } = await supabase.from("orders").delete().eq("id", selected.id);
+    if (error) { setErr(error.message); setSaving(false); return; }
+    setOrders(prev => prev.filter(o => o.id !== selected.id));
+    setSaving(false);
+    closeModal();
   }
 
   const filtered = orders.filter(o => {
@@ -62,6 +188,7 @@ export default function OrdersClient({ initialOrders }: { initialOrders: Order[]
             </button>
           ))}
         </div>
+        <button className={styles.addBtn} onClick={openAdd}>+ Add Order</button>
         <ExportButton data={filtered} filename="orders" fields={EXPORT_FIELDS} />
       </div>
 
@@ -70,16 +197,17 @@ export default function OrdersClient({ initialOrders }: { initialOrders: Order[]
           <thead>
             <tr>
               <th>Customer</th><th>Items</th><th>Total</th>
-              <th>Zone</th><th>Status</th><th>Date</th><th>Update Status</th>
+              <th>Zone</th><th>Status</th><th>Date</th><th>Update</th><th>Actions</th>
             </tr>
           </thead>
           <tbody>
             {filtered.length === 0 && (
-              <tr><td colSpan={7} className={styles.empty}>No orders found.</td></tr>
+              <tr><td colSpan={8} className={styles.empty}>No orders found.</td></tr>
             )}
             {filtered.map(o => (
               <tr key={o.id}>
                 <td>
+                  {o.status === "new" && <span className={styles.newDot} title="New order" />}
                   <strong>{o.customer_name}</strong><br />
                   <a href={`tel:${o.customer_phone}`} className={styles.phone}>{o.customer_phone}</a><br />
                   <span className={styles.addr}>{o.customer_address}</span>
@@ -106,6 +234,12 @@ export default function OrdersClient({ initialOrders }: { initialOrders: Order[]
                     <option value="cancelled">Cancelled</option>
                   </select>
                 </td>
+                <td>
+                  <div className={styles.actions}>
+                    <button className={styles.editBtn} onClick={() => openEdit(o)}>Edit</button>
+                    <button className={styles.deleteBtn} onClick={() => openDelete(o)}>Delete</button>
+                  </div>
+                </td>
               </tr>
             ))}
           </tbody>
@@ -115,6 +249,100 @@ export default function OrdersClient({ initialOrders }: { initialOrders: Order[]
         Showing {filtered.length} of {orders.length} orders
         {filter !== "all" && ` · filtered by "${filter.replace(/_/g, " ")}"`}
       </div>
+
+      {/* Add / Edit Modal */}
+      {(modal === "add" || modal === "edit") && (
+        <div className={styles.backdrop} onClick={closeModal}>
+          <div className={styles.modal} onClick={e => e.stopPropagation()}>
+            <div className={styles.modalHeader}>
+              <h2 className={styles.modalTitle}>{modal === "add" ? "Add Order" : "Edit Order"}</h2>
+              <button className={styles.modalClose} onClick={closeModal}>✕</button>
+            </div>
+            <div className={styles.modalBody}>
+              <div className={styles.fieldGroup}>
+                <label className={styles.label}>Customer Name *</label>
+                <input className={styles.input} value={form.customer_name} onChange={e => setForm(f => ({ ...f, customer_name: e.target.value }))} />
+              </div>
+              <div className={styles.row2}>
+                <div className={styles.fieldGroup}>
+                  <label className={styles.label}>Phone</label>
+                  <input className={styles.input} value={form.customer_phone} onChange={e => setForm(f => ({ ...f, customer_phone: e.target.value }))} />
+                </div>
+                <div className={styles.fieldGroup}>
+                  <label className={styles.label}>Zone</label>
+                  <select className={styles.input} value={form.delivery_zone} onChange={e => setForm(f => ({ ...f, delivery_zone: e.target.value as DeliveryZone }))}>
+                    {ZONES.map(z => <option key={z} value={z}>{z.replace("_", " ")}</option>)}
+                  </select>
+                </div>
+              </div>
+              <div className={styles.fieldGroup}>
+                <label className={styles.label}>Address</label>
+                <input className={styles.input} value={form.customer_address} onChange={e => setForm(f => ({ ...f, customer_address: e.target.value }))} />
+              </div>
+              <div className={styles.fieldGroup}>
+                <label className={styles.label}>Status</label>
+                <select className={styles.input} value={form.status} onChange={e => setForm(f => ({ ...f, status: e.target.value as OrderStatus }))}>
+                  {STATUSES.filter(s => s.value !== "all").map(s => <option key={s.value} value={s.value}>{s.label}</option>)}
+                </select>
+              </div>
+
+              <div className={styles.fieldGroup}>
+                <label className={styles.label}>Items</label>
+                {form.items.map((it, i) => (
+                  <div key={i} className={styles.itemRow}>
+                    <input className={styles.input} placeholder="Product name" value={it.product_name}
+                      onChange={e => setItem(i, "product_name", e.target.value)} style={{ flex: 2 }} />
+                    <input className={styles.inputSm} type="number" min={1} placeholder="Qty" value={it.quantity}
+                      onChange={e => setItem(i, "quantity", parseInt(e.target.value) || 1)} />
+                    <input className={styles.inputSm} type="number" min={0} step="0.01" placeholder="Price" value={it.unit_price}
+                      onChange={e => setItem(i, "unit_price", parseFloat(e.target.value) || 0)} />
+                    {form.items.length > 1 && (
+                      <button className={styles.removeItem} onClick={() => removeItem(i)}>✕</button>
+                    )}
+                  </div>
+                ))}
+                <button className={styles.addItemBtn} onClick={addItem}>+ Add item</button>
+                <div className={styles.totalPreview}>Total: ₱{calcTotal(form.items).toFixed(2)}</div>
+              </div>
+
+              <div className={styles.fieldGroup}>
+                <label className={styles.label}>Notes</label>
+                <textarea className={styles.textarea} value={form.notes} rows={2} onChange={e => setForm(f => ({ ...f, notes: e.target.value }))} />
+              </div>
+
+              {err && <div className={styles.errMsg}>{err}</div>}
+            </div>
+            <div className={styles.modalFooter}>
+              <button className={styles.cancelBtn} onClick={closeModal}>Cancel</button>
+              <button className={styles.saveBtn} disabled={saving} onClick={modal === "add" ? handleAdd : handleEdit}>
+                {saving ? "Saving…" : modal === "add" ? "Add Order" : "Save Changes"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Delete Confirm Modal */}
+      {modal === "delete" && selected && (
+        <div className={styles.backdrop} onClick={closeModal}>
+          <div className={styles.modalSm} onClick={e => e.stopPropagation()}>
+            <div className={styles.modalHeader}>
+              <h2 className={styles.modalTitle}>Delete Order</h2>
+              <button className={styles.modalClose} onClick={closeModal}>✕</button>
+            </div>
+            <div className={styles.modalBody}>
+              <p>Delete order for <strong>{selected.customer_name}</strong>? This cannot be undone.</p>
+              {err && <div className={styles.errMsg}>{err}</div>}
+            </div>
+            <div className={styles.modalFooter}>
+              <button className={styles.cancelBtn} onClick={closeModal}>Cancel</button>
+              <button className={styles.deleteSaveBtn} disabled={saving} onClick={handleDelete}>
+                {saving ? "Deleting…" : "Delete"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

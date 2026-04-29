@@ -82,5 +82,6 @@
   .header { padding: 0 16px; justify-content: space-between; }
   .hamburger { display: flex; }
   .userInfo { display: none; }
-  .header { justify-content: space-between; }
+  .divider { display: none; }
+  .avatar { width: 30px; height: 30px; font-size: 12px; }
 }
