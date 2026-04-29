@@ -6,7 +6,7 @@ const OWNER_PHONE = "09760920033";
 async function sendSmsAlert(order: {
   customer_name: string;
   customer_phone: string;
-  items: { name: string; qty: number }[];
+  items: { product_name: string; quantity: number }[];
   total: number;
   delivery_zone: string;
   payment_method: string;
@@ -14,21 +14,21 @@ async function sendSmsAlert(order: {
   const apiKey = process.env.SEMAPHORE_API_KEY;
   if (!apiKey) return;
 
-  const itemList = order.items.map((i) => `${i.qty}x ${i.name}`).join(", ");
+  const itemList = order.items.map((i) => `${i.quantity}x ${i.product_name}`).join(", ");
   const zone = order.delivery_zone === "gran_seville" ? "Gran Seville" : order.delivery_zone;
   const pay = order.payment_method === "gcash" ? "GCash" : "Cash";
   const message = `New Jada's Greens order!\n${order.customer_name} (${order.customer_phone})\n${itemList}\nTotal: P${order.total} [${pay}]\n${zone}`;
 
-  await fetch("https://api.semaphore.co/api/v4/messages", {
+  const res = await fetch("https://api.semaphore.co/api/v4/messages", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       apikey: apiKey,
       number: OWNER_PHONE,
       message,
-      sendername: "JADASGREENS",
     }),
-  }).catch((err) => console.error("SMS send error:", err));
+  });
+  if (!res.ok) console.error("SMS send error:", res.status, await res.text());
 }
 
 export async function POST(req: NextRequest) {
