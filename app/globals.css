@@ -1,8 +1,8 @@
 @font-face {
   font-family: 'Sergio Trendy';
-  src: url('/public/fonts/sergio-trendy.woff2') format('woff2'),
-       url('/public/fonts/sergio-trendy.woff') format('woff'),
-       url('/public/fonts/sergio-trendy.TTF') format('truetype');
+  src: url('/fonts/sergio-trendy.woff2') format('woff2'),
+       url('/fonts/sergio-trendy.woff') format('woff'),
+       url('/fonts/sergio-trendy.ttf') format('truetype');
   font-weight: 400 900;
   font-style: normal;
   font-display: swap;
