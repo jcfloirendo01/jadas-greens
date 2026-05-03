@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./OrderForm.module.css";
 
 interface Props { onClose: () => void; }
@@ -18,6 +18,30 @@ export default function OrderForm({ onClose }: Props) {
   const [status, setStatus] = useState<"idle"|"loading"|"success"|"error">("idle");
 
   const total = qty <= 2 ? qty * 40 : Math.floor(qty / 3) * 100 + (qty % 3) * 40;
+
+  useEffect(() => {
+    const scrollY = window.scrollY;
+    const bodyStyle = document.body.style;
+    const previousPosition = bodyStyle.position;
+    const previousTop = bodyStyle.top;
+    const previousWidth = bodyStyle.width;
+    const previousOverflow = bodyStyle.overflow;
+
+    bodyStyle.position = "fixed";
+    bodyStyle.top = `-${scrollY}px`;
+    bodyStyle.width = "100%";
+    bodyStyle.overflow = "hidden";
+    window.dispatchEvent(new Event("order-modal-open"));
+
+    return () => {
+      window.dispatchEvent(new Event("order-modal-close"));
+      bodyStyle.position = previousPosition;
+      bodyStyle.top = previousTop;
+      bodyStyle.width = previousWidth;
+      bodyStyle.overflow = previousOverflow;
+      window.scrollTo(0, scrollY);
+    };
+  }, []);
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -43,7 +67,7 @@ export default function OrderForm({ onClose }: Props) {
 
   return (
     <div className={styles.overlay} onClick={(e) => e.target === e.currentTarget && onClose()}>
-      <div className={styles.modal}>
+      <div className={styles.modal} data-lenis-prevent>
         <button className={styles.close} onClick={onClose} aria-label="Close">✕</button>
 
         {status === "success" ? (

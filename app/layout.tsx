@@ -4,6 +4,7 @@ import Cursor from "@/components/Cursor";
 import SmoothScroll from "@/components/SmoothScroll";
 import PageTransitionWrapper from "@/components/PageTransitionWrapper";
 import GSAPAnimations from "@/components/GSAPAnimations";
+import MessengerChat from "@/components/MessengerChat";
 
 export const metadata: Metadata = {
   title: "Jada's Greens — Hydroponically Grown Lettuce · Cabuyao, Laguna",
@@ -28,6 +29,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Cursor />
         <PageTransitionWrapper />
         {children}
+        <MessengerChat />
       </body>
     </html>
   );

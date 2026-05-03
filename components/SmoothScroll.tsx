@@ -45,8 +45,16 @@ export default function SmoothScroll() {
 
     document.addEventListener("click", handleAnchorClick);
 
+    const stopLenis = () => lenis.stop();
+    const startLenis = () => lenis.start();
+
+    window.addEventListener("order-modal-open", stopLenis);
+    window.addEventListener("order-modal-close", startLenis);
+
     return () => {
       document.removeEventListener("click", handleAnchorClick);
+      window.removeEventListener("order-modal-open", stopLenis);
+      window.removeEventListener("order-modal-close", startLenis);
       lenis.destroy();
       gsap.ticker.remove(raf);
     };
