@@ -4,11 +4,11 @@ import nodemailer from "nodemailer";
 
 export const runtime = "nodejs";
 
-const DEFAULT_ORDER_EMAIL = "jc.floirendo01@gmail.com";
+const DEFAULT_ORDER_EMAILS = "jc.floirendo01@gmail.com,margaritabinasreyes@gmail.com";
 const DEFAULT_FROM_EMAIL = "Jada's Greens <onboarding@resend.dev>";
 
 function getOrderEmailRecipients() {
-  return (process.env.RESEND_ORDER_TO_EMAILS ?? DEFAULT_ORDER_EMAIL)
+  return (process.env.RESEND_ORDER_TO_EMAILS ?? DEFAULT_ORDER_EMAILS)
     .split(",")
     .map((email) => email.trim())
     .filter(Boolean);
