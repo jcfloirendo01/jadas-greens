@@ -17,6 +17,7 @@ export default function PageTransition() {
     if (isAdminRoute) return;
     const curtain = curtainRef.current;
     if (!curtain) return;
+    gsap.killTweensOf(curtain);
     gsap.set(curtain, { scaleY: 1, transformOrigin: "top" });
     gsap.to(curtain, {
       scaleY: 0,
@@ -26,7 +27,7 @@ export default function PageTransition() {
       delay: 0.15,
     });
     isFirst.current = false;
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [isAdminRoute]);
 
   // Enter animation on route change
   useEffect(() => {

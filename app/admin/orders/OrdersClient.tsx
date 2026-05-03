@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createClient } from "@/lib/supabase";
 import type { Order, OrderItem, OrderStatus, DeliveryZone, PaymentMethod } from "@/lib/types";
 import ExportButton from "@/components/admin/ExportButton";
@@ -51,11 +51,18 @@ function calcTotal(items: ItemRow[]) {
   return items.reduce((s, it) => s + calcItemSubtotal(it.quantity, it.unit_price), 0);
 }
 
-export default function OrdersClient({ initialOrders }: { initialOrders: Order[] }) {
+export default function OrdersClient({
+  initialOrders,
+  initialFocusedOrderId,
+}: {
+  initialOrders: Order[];
+  initialFocusedOrderId: string | null;
+}) {
   const [orders, setOrders] = useState<Order[]>(initialOrders);
   const [filter, setFilter] = useState<"all" | OrderStatus>("all");
   const [search, setSearch] = useState("");
   const [updating, setUpdating] = useState<string | null>(null);
+  const focusedOrderRef = useRef<HTMLTableRowElement | null>(null);
   const supabase = createClient();
 
   // Modal state
@@ -190,6 +197,20 @@ export default function OrdersClient({ initialOrders }: { initialOrders: Order[]
     return true;
   });
 
+  useEffect(() => {
+    if (!initialFocusedOrderId) return;
+    setFilter("all");
+    setSearch("");
+  }, [initialFocusedOrderId]);
+
+  useEffect(() => {
+    if (!initialFocusedOrderId || !focusedOrderRef.current) return;
+    const frame = window.requestAnimationFrame(() => {
+      focusedOrderRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, [initialFocusedOrderId, orders, filter, search]);
+
   return (
     <div>
       <div className={styles.toolbar}>
@@ -218,7 +239,11 @@ export default function OrdersClient({ initialOrders }: { initialOrders: Order[]
               <tr><td colSpan={9} className={styles.empty}>No orders found.</td></tr>
             )}
             {filtered.map(o => (
-              <tr key={o.id}>
+              <tr
+                key={o.id}
+                ref={o.id === initialFocusedOrderId ? focusedOrderRef : null}
+                className={o.id === initialFocusedOrderId ? styles.focusedRow : undefined}
+              >
                 <td>
                   {o.status === "new" && <span className={styles.newDot} title="New order" />}
                   <strong>{o.customer_name}</strong><br />

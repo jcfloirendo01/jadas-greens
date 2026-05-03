@@ -11,6 +11,8 @@
 .table td { padding:12px 16px; border-bottom:1px solid var(--rule-soft); vertical-align:top; }
 .table tr:last-child td { border-bottom:none; }
 .table tr:hover td { background:var(--paper); }
+.table .focusedRow td { background:#F4F9E8; box-shadow:inset 0 1px 0 rgba(95,164,50,0.35), inset 0 -1px 0 rgba(95,164,50,0.35); }
+.table .focusedRow:hover td { background:#EEF7D8; }
 .table strong { font-weight:600; color:var(--ink); }
 .phone { color:var(--leaf); font-size:12px; }
 .addr { color:var(--ink-soft); font-size:11px; }

@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { createClient } from "@/lib/supabase";
 import type { Order } from "@/lib/types";
@@ -62,7 +63,13 @@ export default function NotificationBell({ initialNewOrders }: { initialNewOrder
               <div className={styles.empty}>No new orders</div>
             )}
             {orders.slice(0, 8).map((o) => (
-              <div key={o.id} className={styles.item}>
+              <Link
+                key={o.id}
+                className={styles.item}
+                href={`/admin/orders?order=${encodeURIComponent(o.id)}`}
+                onClick={() => setOpen(false)}
+                aria-label={`View order for ${o.customer_name}`}
+              >
                 <div className={styles.itemDot} />
                 <div className={styles.itemBody}>
                   <div className={styles.itemName}>{o.customer_name}</div>
@@ -70,7 +77,7 @@ export default function NotificationBell({ initialNewOrders }: { initialNewOrder
                     ₱{o.total} · {new Date(o.created_at).toLocaleDateString("en-PH", { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" })}
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
           {orders.length > 8 && (
